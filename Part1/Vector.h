@@ -41,6 +41,23 @@ class Vector{
         for (int i=1;i<size;i++){
             std::cout<<", "<<elems[i];
         }
+        std::cout<<"\n";
+
+    }
+    Vector<T>& operator=(const Vector<T> vector_a){//assignment operator
+        if (this==&vector_a){
+            return *this;
+        }
+        delete[] elems;
+        size=vector_a.size;
+        elems= new T[vector_a.size];
+        for (int i=0;i<size;i++){
+            elems[i]=vector_a.elems[i];
+        }
+        return *this;
+    }
+    T operator[](int index)const{
+        return elems[index];        
     }
 };
 

@@ -10,16 +10,21 @@
 namespace mtm{
     class IntMatrix{
         Vector<int>* rows;
-        mtm::Dimensions dim;
+        Dimensions dim;
 
+        private:
+        int* flatten_matrix() const;
         public:
         IntMatrix(Dimensions dim,int num=0);
         IntMatrix(const IntMatrix& mat);
         ~IntMatrix();
         IntMatrix& operator=(const IntMatrix& mat){
+            if(this==&mat){
+                return *this;
+            }
             delete[] rows;
-            dim = mat.dim;
-            rows= new Vector<int>[dim.getRow()];
+            this->dim = mat.dim;
+            this->rows= new Vector<int>[dim.getRow()];
             for (int i=0;i<dim.getRow();i++){
                 rows[i]=mat.rows[i];
             }
@@ -49,7 +54,7 @@ namespace mtm{
         IntMatrix operator-(int to_remove);
         IntMatrix& operator+=(int to_add);
         IntMatrix operator+(int to_add);
-        IntMatrix operator<<() const;
+        friend std::ostream& operator<<(std::ostream& os,const IntMatrix& r);
         IntMatrix operator()(int row,int col) const;
 
         
