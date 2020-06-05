@@ -1,6 +1,8 @@
-#include "vector.h"
+#include "Vector.h"
 
 int main(){
-    Vector<int> a(23,23);
+    Vector<int> a=Vector<int>::Identity(12,0);
+
+
     a.print();
 }
