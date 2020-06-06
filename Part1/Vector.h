@@ -7,39 +7,43 @@
 
 template <class T>
 class Vector{
-    T* elems;
+    T* elements;
     int size;
 
     public:
-    Vector():elems(new T[DEFAULT_SIZE]),size(DEFAULT_SIZE){};//default constructor
-    explicit Vector(int size):elems(new T[size]),size(size){};
-    Vector(int size,T elem):elems(new T[size]),size(size){
+    Vector():elements(new T[DEFAULT_SIZE]),size(DEFAULT_SIZE){};//default constructor
+    explicit Vector(int size):elements(new T[size]),size(size){};
+    Vector(int size,T element):elements(new T[size]),size(size){
        for (int i=0;i<size;i++){
-           elems[i]=elem;
+           elements[i]=element;
        } 
     };
     Vector<T>(const Vector<T>& v):size(v.size){//copy constructor
-        elems=new T[v.size];
+        elements=new T[v.size];
         for (int i=0; i<v.size;i++){
-            elems[i]=v.elems[i];
+            elements[i]=v.elements[i];
         }
     }
     ~Vector(){
-        delete[] elems;
+        delete[] elements;
+    }
+
+    int getSize() const{
+        return size;
     }
 
     static Vector<T> Identity(int size,int index_of_one){
         Vector new_vector(size,0);
         if (index_of_one<size){
-            new_vector.elems[index_of_one]=1;
+            new_vector.elements[index_of_one]=1;
         }
         return new_vector;
     }
 
     void print() const{
-        std::cout<<elems[0];
+        std::cout<<elements[0];
         for (int i=1;i<size;i++){
-            std::cout<<", "<<elems[i];
+            std::cout<<", "<<elements[i];
         }
         std::cout<<"\n";
 
@@ -48,17 +52,58 @@ class Vector{
         if (this==&vector_a){
             return *this;
         }
-        delete[] elems;
+        delete[] elements;
         size=vector_a.size;
-        elems= new T[vector_a.size];
+        elements= new T[vector_a.size];
         for (int i=0;i<size;i++){
-            elems[i]=vector_a.elems[i];
+            elements[i]=vector_a.elements[i];
         }
         return *this;
     }
     T operator[](int index)const{
-        return elems[index];        
+        return elements[index];        
     }
+
+    bool findMember(T element) const{ //returns true iff given element exists in vector
+        for(int i = 0; i<size; i++){
+            if(elements[i] == element){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool findOtherThan(T element) const{ //returns true iff vector contains an element other than the given one
+        for(int i = 0; i<size; i++){
+            if(elements[i] != element){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static Vector<T>* transpose(const Vector<T>* original, int original_row_num){
+        int new_row_num = original[0].getSize();
+        Vector<T>* transposed = new Vector<T>[new_row_num];
+        for(int i = 0; i<new_row_num; i++){
+            Vector<T> current_row = Vector<T>(original_row_num);
+            for(int j = 0; j<original_row_num; j++){
+                current_row.elements[j] = original[j].elements[i];
+            }
+            transposed[i] = current_row;
+        }
+        return transposed;
+    
+    }
+
+    T& getReference(int index){ // returns reference to element at given index
+        return elements[index];
+    }
+
+    T get(int index){ // returns element at given index
+        return elements[index];
+    }
+
 };
 
 

@@ -18,33 +18,13 @@ namespace mtm{
         IntMatrix(Dimensions dim,int num=0);
         IntMatrix(const IntMatrix& mat);
         ~IntMatrix();
-        IntMatrix& operator=(const IntMatrix& mat){
-            if(this==&mat){
-                return *this;
-            }
-            delete[] rows;
-            this->dim = mat.dim;
-            this->rows= new Vector<int>[dim.getRow()];
-            for (int i=0;i<dim.getRow();i++){
-                rows[i]=mat.rows[i];
-            }
-
-            return *this;
-
-        };
+        IntMatrix& operator=(const IntMatrix& mat);
         static IntMatrix Identity(int dimension);
         int width() const;
         int height() const;
         int size() const;
         IntMatrix transpose() const;
-        
-    
-
-
-
-        
-
-
+  
 
         ///
 
@@ -55,9 +35,11 @@ namespace mtm{
         IntMatrix& operator+=(int to_add);
         IntMatrix operator+(int to_add);
         friend std::ostream& operator<<(std::ostream& os,const IntMatrix& r);
-        IntMatrix operator()(int row,int col) const;
+        int& operator()(int row,int col);
+        int operator()(int row,int col) const;
 
-        
+        bool any() const;
+        bool all() const;
     };
 
 

@@ -12,13 +12,25 @@ namespace mtm{
         }
     }
     IntMatrix::IntMatrix(const IntMatrix& mat):dim(mat.dim){
-        rows= new Vector<int>[dim.getCol()];
+        rows = new Vector<int>[dim.getRow()];
         for (int i=0;i<dim.getRow();i++){
             rows[i]=mat.rows[i];
         }
     }
 
+    IntMatrix IntMatrix::transpose() const{
+        Vector<int>* transposed_rows = Vector<int>::transpose(rows,dim.getRow());
+        Dimensions new_dim = Dimensions(dim.getCol(),dim.getRow());
+        IntMatrix transposed = IntMatrix(new_dim);
+        for (int i = 0; i < dim.getCol(); i++)
+        {
+            transposed.rows[i] = transposed_rows[i];
+        }
 
+        delete[] transposed_rows;
+        
+        return transposed;
+    }
 
 
     //prev: IntMatrix::IntMatrix Identity(int dimension){
@@ -32,6 +44,20 @@ namespace mtm{
         return new_mat;
     }
 
+    IntMatrix& IntMatrix::operator=(const IntMatrix& mat){
+            if(this==&mat){
+                return *this;
+            }
+            delete[] rows;
+            this->dim = mat.dim;
+            this->rows= new Vector<int>[dim.getRow()];
+            for (int i=0;i<dim.getRow();i++){
+                rows[i]=mat.rows[i];
+            }
+
+            return *this;
+
+    }
 
     IntMatrix::~IntMatrix(){
         delete[] rows;
@@ -49,22 +75,54 @@ namespace mtm{
     }
 
     int* IntMatrix::flatten_matrix() const{
-        int m_height=height();
-        int m_width=width();
-        int total_size=m_height*m_width;
+        int matrix_height=height();
+        int matrix_width=width();
+        int total_size=matrix_height*matrix_width;
 
-        int* flat_matrix=new int[total_size];
-        for (int i=0;i<m_height;i++){
-            for(int j=0;j<m_width;j++){
-                flat_matrix[i*m_width+j]=rows[i][j];
+        int* flat_matrix= new int[total_size];
+        for (int i=0;i<matrix_height;i++){
+            for(int j=0;j<matrix_width;j++){
+                flat_matrix[i*matrix_width+j]=rows[i][j];
             }
         }
         return flat_matrix;
     }
 
-    std::ostream& operator<<(std::ostream& os,const IntMatrix& r){
-
-        os<<printMatrix(r.flatten_matrix(),r.dim);
+    int& IntMatrix::operator()(int row, int col){
+        return rows[row].getReference(col);    
     }
+
+    int IntMatrix::operator()(int row,int col) const{
+        return rows[row].get(col);  
+     }
+
+
+    std::ostream& operator<<(std::ostream& os,const IntMatrix& r){
+        int* flattened = r.flatten_matrix();
+        os<<printMatrix(flattened,r.dim);
+        delete[] flattened;
+        return os;
+    }
+
+    bool IntMatrix::all() const{
+        for(int i = 0; i < dim.getRow();i++){
+            if(rows[i].findMember(0)){
+                return false;
+            }
+
+        }
+        return true;  
+    }
+
+    bool IntMatrix::any() const{
+        for(int i = 0; i < dim.getRow();i++){
+            if(rows[i].findOtherThan(0)){
+                return false;
+            }
+
+        }
+        return true;  
+    }
+
 
 }
