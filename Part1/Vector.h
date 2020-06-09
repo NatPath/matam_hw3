@@ -103,6 +103,23 @@ class Vector{
     T get(int index){ // returns element at given index
         return elements[index];
     }
+    T& operator+=(const Vector<T> to_add){
+        for (int i=0;i<to_add.size;i++){
+            elements[i]+=to_add[i];
+        }
+    }
+    T& operator-=(const Vector<T> to_subtract){
+        for (int i=0;i<to_subtract.size;i++){
+            elements[i]-=to_subtract[i];
+        }
+    }
+    Vector<T> operator-()const{
+        Vector<T> new_vector(size);
+        for (int i=0; i<size;i++){
+            new_vector.elements[i]=-elements[i];
+        }
+        return new_vector;
+    }
 
 };
 

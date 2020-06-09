@@ -124,5 +124,36 @@ namespace mtm{
         return true;  
     }
 
+    IntMatrix IntMatrix::operator+(const IntMatrix& to_add) const{
+        IntMatrix new_matrix=to_add;
+        int matrix_height=height();
+        for (int i=0;i<matrix_height;i++){
+            new_matrix.rows[i]+=rows[i];
+        }
+        return new_matrix;
+    }
+    IntMatrix IntMatrix::operator-() const{
+        IntMatrix new_matrix(dim);
+        int matrix_height=height();
+        for (int i=0;i<matrix_height;i++){
+            new_matrix.rows[i]=-rows[i];            
+        }
+        return new_matrix;
+                
+    }
+    IntMatrix IntMatrix::operator-(const IntMatrix& to_add) const{
+        return *this+(-to_add);
+    }
+
+    IntMatrix operator+(const IntMatrix& matrix,int to_add){
+        return matrix+IntMatrix(matrix.dim,to_add);
+    }
+    IntMatrix operator+(int to_add, const IntMatrix& matrix){
+        return matrix+to_add;
+    }
+    IntMatrix& operator+=(IntMatrix& matrix, int to_add){
+        matrix=matrix+to_add;
+        return matrix;
+    }
 
 }

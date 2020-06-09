@@ -31,6 +31,18 @@ namespace mtm{
 
     }
 
+    void check_arithmetic(){
+        Dimensions a_dim(4,4);
+        IntMatrix a(a_dim,3);
+        IntMatrix b(a_dim,4);
+
+        IntMatrix res(a_dim);
+        res=3+b+4+5;
+        std::cout<<res;
+    
+
+    }
+
 
 }
 using namespace mtm;
@@ -40,4 +52,6 @@ int main(){
 
     check_identity_creation(12);
     check_transpose(dim,2);
+
+    check_arithmetic();
 }

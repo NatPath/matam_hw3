@@ -29,11 +29,14 @@ namespace mtm{
         ///
 
 
+        IntMatrix operator+(const IntMatrix& to_add) const;
         IntMatrix operator-() const;
-        IntMatrix& operator-=(int to_remove);
-        IntMatrix operator-(int to_remove);
-        IntMatrix& operator+=(int to_add);
-        IntMatrix operator+(int to_add);
+        IntMatrix operator-(const IntMatrix& to_subtract) const;
+
+        friend IntMatrix operator+(const IntMatrix& matrix,int to_add);
+        friend IntMatrix operator+(int to_add, const IntMatrix& matrix);//does not really need to be a friend
+        friend IntMatrix& operator+=(IntMatrix& matrix,int to_add);
+
         friend std::ostream& operator<<(std::ostream& os,const IntMatrix& r);
         int& operator()(int row,int col);
         int operator()(int row,int col) const;
