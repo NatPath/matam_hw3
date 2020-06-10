@@ -5,6 +5,7 @@
 
 namespace mtm{
 
+    
     IntMatrix::IntMatrix(Dimensions dim,int num):dim(dim){
         rows = new Vector<int>[dim.getRow()];
         for(int i = 0; i<dim.getRow(); i++){
@@ -124,6 +125,8 @@ namespace mtm{
         return true;  
     }
 
+    
+
     IntMatrix IntMatrix::operator+(const IntMatrix& to_add) const{
         IntMatrix new_matrix=to_add;
         int matrix_height=height();
@@ -155,5 +158,54 @@ namespace mtm{
         matrix=matrix+to_add;
         return matrix;
     }
+
+    // converts the boolean value from the generic Vector operator functions into integers
+    IntMatrix IntMatrix::applyLogicalOperator(int compare, logical_operator operation) const{
+        IntMatrix result(dim);
+        Vector<bool> compared_row;
+        for (int i = 0; i < dim.getRow(); i++)
+        {
+            switch(operation){
+                case eq: compared_row = (rows[i] == compare); break;
+                case neq: compared_row = (rows[i] != compare); break;
+                case lt: compared_row = (rows[i] < compare); break;
+                case gt: compared_row = (rows[i] > compare); break;
+                case lte: compared_row = (rows[i] <= compare); break;
+                case gte: compared_row = (rows[i] >= compare); break;
+            }
+            for (int j = 0; j < dim.getCol(); j++)
+            {
+                result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
+            }
+        }
+        return result;
+    }
+
+    
+    IntMatrix IntMatrix::operator==(int compare) const{
+       return applyLogicalOperator(compare,eq);
+    }
+
+    IntMatrix IntMatrix::operator!=(int compare) const{
+       return applyLogicalOperator(compare,neq);
+    }
+
+    IntMatrix IntMatrix::operator<(int compare) const{
+       return applyLogicalOperator(compare,lt);
+    }
+
+    IntMatrix IntMatrix::operator>(int compare) const{
+       return applyLogicalOperator(compare,gt);
+    }
+
+    IntMatrix IntMatrix::operator<=(int compare) const{
+       return applyLogicalOperator(compare,lte);
+    }
+
+    IntMatrix IntMatrix::operator>=(int compare) const{
+       return applyLogicalOperator(compare,gte);
+    }
+
+
 
 }

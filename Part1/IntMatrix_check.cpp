@@ -39,7 +39,22 @@ namespace mtm{
         IntMatrix res(a_dim);
         res=3+b+4+5;
         std::cout<<res;
+        std::cout<<a+b;
     
+
+    }
+
+    void check_logical (){
+        IntMatrix a(Dimensions(3,4),7);
+        a(0,1) = 0;
+        a(2,1) = 0;
+        a(2,3) = 0;
+        std::cout<< (a>5) + (a==0);
+        std::cout<< (a!=7);
+        std::cout<< (a>=7);
+        std::cout<< (a<=0);
+        std::cout<< (a<0);
+        std::cout<< (a>7);
 
     }
 
@@ -47,11 +62,12 @@ namespace mtm{
 }
 using namespace mtm;
 int main(){
-    Dimensions dim(5,3);
-    create_and_print_matrix(dim,2);
+    //Dimensions dim(5,3);
+    //create_and_print_matrix(dim,2);
 
-    check_identity_creation(12);
-    check_transpose(dim,2);
+    //check_identity_creation(12);
+    //check_transpose(dim,2);
 
-    check_arithmetic();
+    //check_arithmetic();
+    check_logical();
 }

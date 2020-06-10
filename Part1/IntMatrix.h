@@ -8,6 +8,7 @@
 
 
 namespace mtm{
+    enum logical_operator {eq,neq,lt,gt,lte,gte};
     class IntMatrix{
         Vector<int>* rows;
         Dimensions dim;
@@ -51,6 +52,9 @@ namespace mtm{
 
         bool any() const;
         bool all() const;
+
+        private:
+        IntMatrix applyLogicalOperator(int compare, logical_operator operation) const;
     };
 
 

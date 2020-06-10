@@ -6,6 +6,7 @@
 #include <iostream>
 
 template <class T>
+
 class Vector{
     T* elements;
     int size;
@@ -103,15 +104,17 @@ class Vector{
     T get(int index){ // returns element at given index
         return elements[index];
     }
-    T& operator+=(const Vector<T> to_add){
+    Vector<T>& operator+=(const Vector<T> to_add){
         for (int i=0;i<to_add.size;i++){
             elements[i]+=to_add[i];
         }
+        return *this;
     }
-    T& operator-=(const Vector<T> to_subtract){
+    Vector<T>& operator-=(const Vector<T> to_subtract){
         for (int i=0;i<to_subtract.size;i++){
             elements[i]-=to_subtract[i];
         }
+        return *this;
     }
     Vector<T> operator-()const{
         Vector<T> new_vector(size);
@@ -120,6 +123,56 @@ class Vector{
         }
         return new_vector;
     }
+
+    Vector<bool> operator==(T compare)const{
+        Vector<bool> new_vector(size,false);
+        for(int i = 0; i<size; i++){
+            new_vector.getReference(i) = (elements[i] == compare);
+        }
+        return new_vector;
+    }
+
+     Vector<bool> operator!=(T compare)const{
+        Vector<bool> new_vector(size,false);
+        for(int i = 0; i<size; i++){
+            new_vector.getReference(i) = (elements[i] != compare);
+        }
+        return new_vector;
+    }
+
+    Vector<bool> operator<(T compare)const{
+        Vector<bool> new_vector(size,false);
+        for(int i = 0; i<size; i++){
+            new_vector.getReference(i) = (elements[i] < compare);
+        }
+        return new_vector;
+    }
+
+     Vector<bool> operator>(T compare)const{
+        Vector<bool> new_vector(size,false);
+        for(int i = 0; i<size; i++){
+            new_vector.getReference(i) = (elements[i] > compare);
+        }
+        return new_vector;
+    }
+
+    Vector<bool> operator<=(T compare)const{
+        Vector<bool> new_vector(size,false);
+        for(int i = 0; i<size; i++){
+            new_vector.getReference(i) = (elements[i] <= compare);
+        }
+        return new_vector;
+    }
+
+     Vector<bool> operator>=(T compare)const{
+        Vector<bool> new_vector(size,false);
+        for(int i = 0; i<size; i++){
+            new_vector.getReference(i) = (elements[i] >= compare);
+        }
+        return new_vector;
+    }
+
+    
 
 };
 
