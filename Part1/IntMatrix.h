@@ -52,8 +52,6 @@ namespace mtm{
         int& operator()(int row,int col);
         int operator()(int row,int col) const;
 
-        bool any() const;
-        bool all() const;
 
         class iterator;  
         iterator begin() ;
@@ -63,6 +61,10 @@ namespace mtm{
         const_iterator begin() const;
         const_iterator end() const;
     };
+
+    bool any(const IntMatrix& matrix);
+    bool all(const IntMatrix& matrix);
+
     class IntMatrix::iterator{
         friend class IntMatrix;
         
@@ -91,12 +93,10 @@ namespace mtm{
         const_iterator operator++(int); // postfix
         const_iterator& operator++(); // prefix
         int operator*() const;
-        bool operator==(const iterator& to_compare) const;
-        bool operator!=(const iterator& to_compare) const;
+        bool operator==(const const_iterator& to_compare) const;
+        bool operator!=(const const_iterator& to_compare) const;
 
     };
-
-
 
 }
 

@@ -105,24 +105,24 @@ namespace mtm{
         return os;
     }
 
-    bool IntMatrix::all() const{
-        for(int i = 0; i < dim.getRow();i++){
-            if(rows[i].findMember(0)){
+    bool all(const IntMatrix& matrix) {
+        for (IntMatrix::const_iterator i =matrix.begin(); i != matrix.end(); i++){
+            if(*i==0){
                 return false;
             }
-
         }
-        return true;  
+        return true;
+        
+
     }
 
-    bool IntMatrix::any() const{
-        for(int i = 0; i < dim.getRow();i++){
-            if(rows[i].findOtherThan(0)){
-                return false;
+    bool any(const IntMatrix& matrix) {
+        for (IntMatrix::const_iterator i =matrix.begin(); i != matrix.end(); i++){
+            if(*i!=0){
+                return true;
             }
-
         }
-        return true;  
+        return false;
     }
 
     
@@ -207,6 +207,7 @@ namespace mtm{
     }
 
 
+//iterator zone
     IntMatrix::iterator IntMatrix::begin() {
         return iterator(this,0);
 
@@ -236,7 +237,7 @@ namespace mtm{
     }
 
     bool IntMatrix::iterator::operator==(const iterator& to_compare) const{
-        if (matrix==to_compare.matrix){
+        if (matrix==to_compare.matrix && index==to_compare.index){
             return true;
         }
         return false;
@@ -245,8 +246,7 @@ namespace mtm{
     bool IntMatrix::iterator::operator!=(const iterator& to_compare) const{
         return !(*this==to_compare);
     }
-
-/*
+//const_iterator zone
     IntMatrix::const_iterator::const_iterator(const IntMatrix* matrix,int index) : matrix(matrix),index(index)
     {}
 
@@ -274,7 +274,15 @@ namespace mtm{
         return result;
     } 
 
-    */
+    bool IntMatrix::const_iterator::operator==(const const_iterator& to_compare) const{
+        if (matrix==to_compare.matrix && index==to_compare.index){
+            return true;
+        }
+        return false;
+    }   
 
+    bool IntMatrix::const_iterator::operator!=(const const_iterator& to_compare) const{
+        return !(*this==to_compare);
+    }
 
 }

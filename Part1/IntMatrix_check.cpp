@@ -1,7 +1,7 @@
 #include "IntMatrix.h"
 #include "Auxiliaries.h"
 #include <iostream>
-
+/*
 namespace mtm{
     void check_identity_creation(int n){ 
         IntMatrix a=IntMatrix::Identity(n);
@@ -60,12 +60,31 @@ namespace mtm{
 
     void check_iterator(){
         IntMatrix a(Dimensions(5,5),3);
+        std::cout<<a<<std::endl;
 
-        for (IntMatrix::iterator i=a.begin();i!=a.end();i++){
-            std::cout<<*i;
+        IntMatrix::iterator i=a.begin();
+
+
+        for (IntMatrix::iterator i=a.begin();i!=a.end();++i){
+            std::cout<<*i<<std::endl;
             *i = 5;
-            std::cout<<*i;
+            std::cout<<*i<<std::endl;
         }        
+        std::cout<<a<<std::endl;
+        
+    }
+    void check_iterator_const(){
+        const IntMatrix a(Dimensions(5,5),3);
+        std::cout<<a<<std::endl;
+
+        IntMatrix::const_iterator i=a.begin();
+
+
+        for (IntMatrix::const_iterator i=a.begin();i!=a.end();++i){
+            std::cout<<*i<<std::endl;
+        }        
+        std::cout<<a<<std::endl;
+        
     }
 
 
@@ -82,3 +101,5 @@ int main(){
     //check_logical();
     check_iterator();
 }
+
+*/
