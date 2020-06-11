@@ -15,6 +15,8 @@ namespace mtm{
 
         private:
         int* flatten_matrix() const;
+        IntMatrix applyLogicalOperator(int compare, logical_operator operation) const;
+
         public:
         IntMatrix(Dimensions dim,int num=0);
         IntMatrix(const IntMatrix& mat);
@@ -53,8 +55,45 @@ namespace mtm{
         bool any() const;
         bool all() const;
 
-        private:
-        IntMatrix applyLogicalOperator(int compare, logical_operator operation) const;
+        class iterator;  
+        iterator begin() ;
+        iterator end() ;
+        
+        class const_iterator;  
+        const_iterator begin() const;
+        const_iterator end() const;
+    };
+    class IntMatrix::iterator{
+        friend class IntMatrix;
+        
+        IntMatrix* matrix;
+        int index;
+
+        public:
+        iterator(IntMatrix* matrix,int index);
+
+        iterator operator++(int); // postfix
+        iterator& operator++(); // prefix
+        int& operator*() const;
+        bool operator==(const iterator& to_compare) const;
+        bool operator!=(const iterator& to_compare) const;
+
+    };
+    class IntMatrix::const_iterator{
+        friend class IntMatrix;
+        
+        const IntMatrix* matrix;
+        int index;
+
+        public:
+        const_iterator(const IntMatrix* matrix,int index);
+
+        const_iterator operator++(int); // postfix
+        const_iterator& operator++(); // prefix
+        int operator*() const;
+        bool operator==(const iterator& to_compare) const;
+        bool operator!=(const iterator& to_compare) const;
+
     };
 
 

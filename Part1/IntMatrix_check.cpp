@@ -58,6 +58,16 @@ namespace mtm{
 
     }
 
+    void check_iterator(){
+        IntMatrix a(Dimensions(5,5),3);
+
+        for (IntMatrix::iterator i=a.begin();i!=a.end();i++){
+            std::cout<<*i;
+            *i = 5;
+            std::cout<<*i;
+        }        
+    }
+
 
 }
 using namespace mtm;
@@ -69,5 +79,6 @@ int main(){
     //check_transpose(dim,2);
 
     //check_arithmetic();
-    check_logical();
+    //check_logical();
+    check_iterator();
 }

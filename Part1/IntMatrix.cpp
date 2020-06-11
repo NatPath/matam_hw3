@@ -207,5 +207,74 @@ namespace mtm{
     }
 
 
+    IntMatrix::iterator IntMatrix::begin() {
+        return iterator(this,0);
+
+    }
+    IntMatrix::iterator IntMatrix::end() {
+        return iterator(this,size());
+    }
+
+    IntMatrix::iterator::iterator(IntMatrix* matrix,int index) : matrix(matrix),index(index)
+    {}
+
+
+    IntMatrix::iterator& IntMatrix::iterator::operator++(){
+        ++index;
+        return *this;
+    }
+    IntMatrix::iterator IntMatrix::iterator::operator++(int){
+        iterator result=*this;
+        ++*this;
+        return result;
+    } 
+    
+    int& IntMatrix::iterator::operator*() const{
+        int row = index/(*matrix).width();
+        int col = index%(*matrix).width();
+        return (*matrix).rows[row].getReference(col);
+    }
+
+    bool IntMatrix::iterator::operator==(const iterator& to_compare) const{
+        if (matrix==to_compare.matrix){
+            return true;
+        }
+        return false;
+    }   
+
+    bool IntMatrix::iterator::operator!=(const iterator& to_compare) const{
+        return !(*this==to_compare);
+    }
+
+/*
+    IntMatrix::const_iterator::const_iterator(const IntMatrix* matrix,int index) : matrix(matrix),index(index)
+    {}
+
+    IntMatrix::const_iterator IntMatrix::begin() const{
+        return const_iterator(this,0);
+
+    }
+    IntMatrix::const_iterator IntMatrix::end() const{
+        return const_iterator(this,size());
+    }
+
+    int IntMatrix::const_iterator::operator*() const{
+        int row = index/(*matrix).width();
+        int col = index%(*matrix).width();
+        return (*matrix).rows[row].get(col);
+    }
+
+    IntMatrix::const_iterator& IntMatrix::const_iterator::operator++(){
+        ++index;
+        return *this;
+    }
+    IntMatrix::const_iterator IntMatrix::const_iterator::operator++(int){
+        const_iterator result=*this;
+        ++*this;
+        return result;
+    } 
+
+    */
+
 
 }
