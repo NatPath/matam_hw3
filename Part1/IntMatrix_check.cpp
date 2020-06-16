@@ -1,7 +1,7 @@
 #include "IntMatrix.h"
 #include "Auxiliaries.h"
 #include <iostream>
-/*
+
 namespace mtm{
     void check_identity_creation(int n){ 
         IntMatrix a=IntMatrix::Identity(n);
@@ -101,5 +101,3 @@ int main(){
     //check_logical();
     check_iterator();
 }
-
-*/
