@@ -2,11 +2,11 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
+
+
 #include <iostream>
-#include "Auxiliaries.h"
 #include "Vector.h"
-
-
+#include "Auxiliaries.h"
 
 namespace mtm{
     enum logical_operator {eq,neq,lt,gt,lte,gte};
@@ -52,19 +52,22 @@ namespace mtm{
         public:
 
         class AccessIllegalElement:public std::runtime_error{
+            public:
             AccessIllegalElement():std::runtime_error("Mtm matrix error: An attempt to access an illegal element"){};
             
         };
         class IllegalInitialization:public std::runtime_error{
+            public:
             IllegalInitialization():std::runtime_error("Mtm matrix error: Illegal initialization values"){};
             
         };
         class DimensionMismatch:public std::runtime_error{
+            public:
             DimensionMismatch(Dimensions dim1, Dimensions dim2){
                 std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString());
             };
         };
-        Matrix<T>(Dimensions dim, T initialize = T()){
+        Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
             if(dim.getCol()<=0||dim.getRow()<=0){
                 throw IllegalInitialization();
             }

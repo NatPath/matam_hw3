@@ -4,8 +4,8 @@
 namespace mtm{
     int main(){
         Dimensions dim(3,3);
-        std::cout<<dim.getRow();
         Matrix<int> mat(dim,3);
+        std::cout<<mat<<std::endl;
         return 0;
     }
 
