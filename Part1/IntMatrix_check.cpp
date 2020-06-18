@@ -91,13 +91,13 @@ namespace mtm{
 }
 using namespace mtm;
 int main(){
-    //Dimensions dim(5,3);
-    //create_and_print_matrix(dim,2);
+    Dimensions dim(5,3);
+    create_and_print_matrix(dim,2);
 
-    //check_identity_creation(12);
-    //check_transpose(dim,2);
+    check_identity_creation(12);
+    check_transpose(dim,2);
 
-    //check_arithmetic();
-    //check_logical();
+    check_arithmetic();
+    check_logical();
     check_iterator();
 }

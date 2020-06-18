@@ -6,7 +6,6 @@
 #include <iostream>
 
 template <class T>
-
 class Vector{
     T* elements;
     int size;
@@ -33,13 +32,14 @@ class Vector{
         return size;
     }
 
-    static Vector<T> Identity(int size,int index_of_one){
+     static Vector<T> Diagonal(int size,int index_of_value, T value){
         Vector new_vector(size,0);
-        if (index_of_one<size){
-            new_vector.elements[index_of_one]=1;
+        if (index_of_value<size){
+            new_vector.elements[index_of_value]=value;
         }
         return new_vector;
     }
+
 
     void print() const{
         std::cout<<elements[0];
@@ -65,24 +65,10 @@ class Vector{
         return elements[index];        
     }
 
-    bool findMember(T element) const{ //returns true iff given element exists in vector
-        for(int i = 0; i<size; i++){
-            if(elements[i] == element){
-                return true;
-            }
-        }
-        return false;
-    }
 
-    bool findOtherThan(T element) const{ //returns true iff vector contains an element other than the given one
-        for(int i = 0; i<size; i++){
-            if(elements[i] != element){
-                return true;
-            }
-        }
-        return false;
-    }
-
+/**
+ * transpose - gets a pointer to vectors as rows and returns pointer to vectors as columns 
+**/
     static Vector<T>* transpose(const Vector<T>* original, int original_row_num){
         int new_row_num = original[0].getSize();
         Vector<T>* transposed = new Vector<T>[new_row_num];
@@ -175,6 +161,5 @@ class Vector{
     
 
 };
-
 
 #endif 

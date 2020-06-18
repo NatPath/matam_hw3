@@ -1,4 +1,5 @@
-#include "IntMatrix.h"
+/*
+#include "Matrix.h"
 #include "Vector.h"
 #include "Auxiliaries.h"
 #include <iostream>
@@ -40,7 +41,7 @@ namespace mtm{
         IntMatrix new_mat(dim);
         for (int i=0;i<dimension;i++){
 
-            new_mat.rows[i]=Vector<int>::Diagonal(dimension,i,1);
+            new_mat.rows[i]=Vector<int>::Identity(dimension,i);
         }
         return new_mat;
     }
@@ -98,9 +99,9 @@ namespace mtm{
      }
 
 
-    std::ostream& operator<<(std::ostream& os,const IntMatrix& r){
-        int* flattened = r.flatten_matrix();
-        os<<printMatrix(flattened,r.dim);
+    std::ostream& operator<<(std::ostream& os,const IntMatrix& to_print){
+        int* flattened = to_print.flatten_matrix();
+        os<<printMatrix(flattened,to_print.dim);
         delete[] flattened;
         return os;
     }
@@ -112,7 +113,6 @@ namespace mtm{
             }
         }
         return true;
-        
 
     }
 
@@ -286,3 +286,5 @@ namespace mtm{
     }
 
 }
+
+*/

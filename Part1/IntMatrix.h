@@ -47,7 +47,7 @@ namespace mtm{
         IntMatrix operator>=(int compare) const;
         IntMatrix operator>(int compare) const;
 
-        friend std::ostream& operator<<(std::ostream& os,const IntMatrix& r);
+        friend std::ostream& operator<<(std::ostream& os,const IntMatrix& to_print);
 
         int& operator()(int row,int col);
         int operator()(int row,int col) const;
