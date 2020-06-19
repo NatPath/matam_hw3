@@ -5,6 +5,7 @@
 
 
 #include <iostream>
+#include <exception>
 #include "Vector.h"
 #include "Auxiliaries.h"
 
@@ -51,17 +52,17 @@ namespace mtm{
 
         public:
 
-        class AccessIllegalElement:public std::runtime_error{
+        class AccessIllegalElement: public std::runtime_error {
             public:
             AccessIllegalElement():std::runtime_error("Mtm matrix error: An attempt to access an illegal element"){};
             
         };
-        class IllegalInitialization:public std::runtime_error{
+        class IllegalInitialization: public std::runtime_error {
             public:
             IllegalInitialization():std::runtime_error("Mtm matrix error: Illegal initialization values"){};
             
         };
-        class DimensionMismatch:public std::runtime_error{
+        class DimensionMismatch: public std::runtime_error {
             public:
             DimensionMismatch(Dimensions dim1, Dimensions dim2){
                 std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString());
