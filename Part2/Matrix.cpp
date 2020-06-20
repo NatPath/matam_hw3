@@ -4,9 +4,13 @@
 #include <stdexcept>
 
 using namespace mtm;
+void print(std::string str){
+    std::cout<<str<<std::endl;
+}
 void testMakeMatrices(){
-    int n=13;
-    int m=37;
+    print("testing Matrix making");
+    int n=4;
+    int m=3;
     Dimensions dim1(n,m);
     Dimensions dim2(m,n);
 
@@ -34,7 +38,7 @@ void testMakeMatrices(){
         try{
             string_mat_op=string_mat_op;
             string_mat_op=string_mat_op+string_mat4;
-        }catch(std::exception e){
+        }catch(std::runtime_error e){
             std::cout<<e.what()<<std::endl;
         }
 
@@ -47,19 +51,46 @@ void testMakeMatrices(){
 
 
     }
-    catch(std::exception e){
-        std::cout<<e.what();
+    catch(std::runtime_error e){
+        std::cout<<e.what()<<std::endl;
     }
+}
+void testTranspose(){
+    print("testing transpose");
+    int n=13;
+    int m=12;
+    Dimensions dim1(n,m);
+    Dimensions dim2(m,n);
+    
+    Matrix<std::string> string_mat1(dim1,"M");
+    Matrix<std::string> string_mat2(dim2,"W");
+    try{
+        string_mat1=string_mat1+string_mat2;
+    }catch(std::runtime_error e){
+        std::cout<<e.what()<<std::endl;
+    }
+    string_mat1(0,1)=std::string("0");
+
+    std::cout<<string_mat1<<std::endl;
+
+    string_mat1=string_mat1.transpose();
+
+    std::cout<<string_mat1<<std::endl;
+
+    try{
+        string_mat1=string_mat1+string_mat2;
+        std::cout<<string_mat1<<std::endl;
+    }catch(std::runtime_error e){
+        std::cout<<e.what()<<std::endl;
+    }
+
     
 
 
-}
-void testDiagonalMatrices(){
-    int n=6;
-    Matrix<int> int_mat = Matrix<int>::Diagonal(6,42);
 
 }
 int main(){
     testMakeMatrices();
+    testTranspose();
 
 }
