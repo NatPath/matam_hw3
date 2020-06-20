@@ -59,13 +59,4 @@ int main(){
     } catch(mtm::Matrix<int>::AccessIllegalElement& e){
         std::cout<<e.what()<<std::endl;
     }
-
-    //my addition
-    try{
-        mtm::Dimensions dim(5,5);
-        const mtm::Matrix<int> mat_200(dim,3);        
-        std::cout<<mat_200<<std::endl;
-    } catch(std::exception e){
-        std::cout<<e.what()<<std::endl;
-    }
 }
