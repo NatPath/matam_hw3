@@ -33,7 +33,7 @@ namespace mtm{
         Matrix<T> applyLogicalOperator(T compare, logical_operator operation) const{
             Matrix result(dim);
             Vector<bool> compared_row;
-            for (int i = 0; i < dim.getRow(); i++)
+            for (int i = 0; i < height(); i++)
             {
                 switch(operation){
                     case eq: compared_row = (rows[i] == compare); break;
@@ -43,7 +43,7 @@ namespace mtm{
                     case lte: compared_row = (rows[i] <= compare); break;
                     case gte: compared_row = (rows[i] >= compare); break;
                 }
-                for (int j = 0; j < dim.getCol(); j++)
+                for (int j = 0; j < width(); j++)
                 {
                     result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
                 }
@@ -94,8 +94,9 @@ namespace mtm{
             if(this==&mat){
                 return *this;
             }
-            Vector<T>* data_temp=new T[height()];
-            for (int i=0;i<dim.getRow();i++){
+            Vector<T>* data_temp=new Vector<T>[mat.height()];
+            //Matrix<T> data_temp(dim);
+            for (int i=0;i<mat.height();i++){
                 data_temp[i]=mat.rows[i];
             }
             delete[] rows;
@@ -126,10 +127,10 @@ namespace mtm{
         };
         Matrix<T> transpose() const{
 
-            Vector<T>* transposed_rows = Vector<T>::transpose(rows,dim.getRow());
-            Dimensions new_dim = Dimensions(dim.getCol(),dim.getRow());
+            Vector<T>* transposed_rows = Vector<T>::transpose(rows,height());
+            Dimensions new_dim = Dimensions(width(),height());
             Matrix transposed = Matrix(new_dim);
-            for (int i = 0; i < dim.getCol(); i++)
+            for (int i = 0; i < width(); i++)
             {
                 transposed.rows[i] = transposed_rows[i];
             }
@@ -197,13 +198,13 @@ namespace mtm{
         template <class Y>
         friend std::ostream& operator<<(std::ostream& os,const Matrix<Y>& to_print);
 
-        int& operator()(int row,int col){
+        T& operator()(int row,int col){
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
             return rows[row].getReference(col);    
         };
-        int operator()(int row,int col) const{
+        T operator()(int row,int col) const{
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
