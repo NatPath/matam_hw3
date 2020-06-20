@@ -32,7 +32,5 @@ std::string mtm::printMatrix(const int* matrix,const Dimensions& dim){
         matrix_str+=  "\n";
     }
     matrix_str+=  "\n";
-    
-    std::cout<<matrix_str;
     return matrix_str;
 }

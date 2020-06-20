@@ -262,8 +262,11 @@ namespace mtm{
 
     template <class T>
      std::ostream& operator<<(std::ostream& os,const Matrix<T>& to_print) {
+         /*
             os<<printMatrix(os,to_print.begin(),to_print.end(),to_print.width());
             return os;
+        */
+       return printMatrix(os,to_print.begin(),to_print.end(),to_print.width());
             
     }
 

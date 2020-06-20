@@ -61,7 +61,7 @@ class Vector{
         }
         return *this;
     }
-    T operator[](int index)const{
+    T& operator[](int index)const{
         return elements[index];        
     }
 
