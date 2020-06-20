@@ -55,10 +55,32 @@ namespace mtm{
 
         public:
 
+        class AccessIllegalElement: public Exception {
+            public:
+            const char* what() const noexcept override{
+                return "Mtm matrix error: An attempt to access an illegal element";
+            }
+        };
+        class IllegalInitialization: public Exception {
+            public:
+            const char* what() const noexcept override{
+                return "Mtm matrix error: Illegal initialization values";
+            }
+        };
+        class DimensionMismatch: public Exception {
+            Dimensions dim1;
+            Dimensions dim2;
+            public:
+            DimensionMismatch(const Dimensions& dim1,const Dimensions& dim2) : dim1(dim1),dim2(dim2){};
+            const char* what() {
+                return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str;
+            }
+        };
+        //Previous exeptions- inherited from runtime_error, it's a shame we can't use them..
+        /*
         class AccessIllegalElement: public std::runtime_error {
             public:
             AccessIllegalElement():std::runtime_error("Mtm matrix error: An attempt to access an illegal element"){};
-            
         };
         class IllegalInitialization: public std::runtime_error {
             public:
@@ -69,9 +91,9 @@ namespace mtm{
             public:
             DimensionMismatch(Dimensions dim1, Dimensions dim2) :  std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString())
             {
-               
             };
         };
+        */
         Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
             if(dim.getCol()<=0||dim.getRow()<=0){
                 throw IllegalInitialization();

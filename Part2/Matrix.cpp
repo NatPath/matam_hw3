@@ -38,7 +38,7 @@ void testMakeMatrices(){
         try{
             string_mat_op=string_mat_op;
             string_mat_op=string_mat_op+string_mat4;
-        }catch(std::runtime_error e){
+        }catch(Exception e){
             std::cout<<e.what()<<std::endl;
         }
 
@@ -51,7 +51,7 @@ void testMakeMatrices(){
 
 
     }
-    catch(std::runtime_error e){
+    catch(Exception e){
         std::cout<<e.what()<<std::endl;
     }
 }
@@ -66,7 +66,7 @@ void testTranspose(){
     Matrix<std::string> string_mat2(dim2,"W");
     try{
         string_mat1=string_mat1+string_mat2;
-    }catch(std::runtime_error e){
+    }catch(Exception e){
         std::cout<<e.what()<<std::endl;
     }
     string_mat1(0,1)=std::string("0");
@@ -80,7 +80,7 @@ void testTranspose(){
     try{
         string_mat1=string_mat1+string_mat2;
         std::cout<<string_mat1<<std::endl;
-    }catch(std::runtime_error e){
+    }catch(Exception e){
         std::cout<<e.what()<<std::endl;
     }
 
