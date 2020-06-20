@@ -20,10 +20,10 @@ namespace mtm{
     }
 
     IntMatrix IntMatrix::transpose() const{
-        Vector<int>* transposed_rows = Vector<int>::transpose(rows,dim.getRow());
-        Dimensions new_dim = Dimensions(dim.getCol(),dim.getRow());
+        Vector<int>* transposed_rows = Vector<int>::transpose(rows,height());
+        Dimensions new_dim = Dimensions(width(),height());
         IntMatrix transposed = IntMatrix(new_dim);
-        for (int i = 0; i < dim.getCol(); i++)
+        for (int i = 0; i < width(); i++)
         {
             transposed.rows[i] = transposed_rows[i];
         }
@@ -51,8 +51,8 @@ namespace mtm{
             }
             delete[] rows;
             this->dim = mat.dim;
-            this->rows= new Vector<int>[dim.getRow()];
-            for (int i=0;i<dim.getRow();i++){
+            this->rows= new Vector<int>[mat.height()];
+            for (int i=0;i<mat.height();i++){
                 rows[i]=mat.rows[i];
             }
 
@@ -163,7 +163,7 @@ namespace mtm{
     IntMatrix IntMatrix::applyLogicalOperator(int compare, logical_operator operation) const{
         IntMatrix result(dim);
         Vector<bool> compared_row;
-        for (int i = 0; i < dim.getRow(); i++)
+        for (int i = 0; i < height(); i++)
         {
             switch(operation){
                 case eq: compared_row = (rows[i] == compare); break;
@@ -173,7 +173,7 @@ namespace mtm{
                 case lte: compared_row = (rows[i] <= compare); break;
                 case gte: compared_row = (rows[i] >= compare); break;
             }
-            for (int j = 0; j < dim.getCol(); j++)
+            for (int j = 0; j < width(); j++)
             {
                 result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
             }
