@@ -8,6 +8,7 @@
 #include <exception>
 #include "Vector.h"
 #include "Auxiliaries.h"
+#include <stdexcept>
 
 namespace mtm{
     enum logical_operator {eq,neq,lt,gt,lte,gte};
@@ -50,6 +51,8 @@ namespace mtm{
             return result;
         };
 
+        
+
         public:
 
         class AccessIllegalElement: public std::runtime_error {
@@ -64,8 +67,9 @@ namespace mtm{
         };
         class DimensionMismatch: public std::runtime_error {
             public:
-            DimensionMismatch(Dimensions dim1, Dimensions dim2){
-                std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString());
+            DimensionMismatch(Dimensions dim1, Dimensions dim2) :  std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString())
+            {
+               
             };
         };
         Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
@@ -77,7 +81,7 @@ namespace mtm{
                 rows[i] = Vector<T>(dim.getCol(),initialize);
             }
         };
-        Matrix<T>(const Matrix<T>& mat){
+        Matrix<T>(const Matrix<T>& mat):dim(mat.dim){
             rows = new Vector<T>[dim.getRow()];
             for (int i=0;i<dim.getRow();i++){
                 rows[i]=mat.rows[i];
@@ -107,7 +111,7 @@ namespace mtm{
             Matrix<T> new_mat(dim);
             for (int i=0;i<dimension;i++){
 
-                new_mat.rows[i]=Vector<T>::Identity(dimension,i);
+                new_mat.rows[i]=Vector<T>::Diagonal(dimension,i,value);
             }
             return new_mat;
         };
@@ -194,9 +198,15 @@ namespace mtm{
         friend std::ostream& operator<<(std::ostream& os,const Matrix<Y>& to_print);
 
         int& operator()(int row,int col){
+            if(row<0 || row>=height() || col<0 || col>=width()){
+                throw AccessIllegalElement();
+            }
             return rows[row].getReference(col);    
         };
         int operator()(int row,int col) const{
+            if(row<0 || row>=height() || col<0 || col>=width()){
+                throw AccessIllegalElement();
+            }
             return rows[row].get(col);  
         };
 
@@ -233,45 +243,45 @@ namespace mtm{
     template <class T>
     bool any(const Matrix<T>& matrix){
         for (typename Matrix<T>::const_iterator i = matrix.begin(); i != matrix.end(); i++){
-            if(*i==true){
+            if(*i){
                 return true;
             }
         }
         return false;
-    };
+    }
 
     template <class T>
     bool all(const Matrix<T>& matrix){
         for (typename Matrix<T>::const_iterator i =matrix.begin(); i != matrix.end(); i++){
-            if(*i==false){
+            if(!(*i)){
                 return false;
             }
         }
         return true;
-    };
+    }
 
     template <class T>
      std::ostream& operator<<(std::ostream& os,const Matrix<T>& to_print) {
             os<<printMatrix(os,to_print.begin(),to_print.end(),to_print.width());
             return os;
             
-    };
+    }
 
     template <class T>
     Matrix<T> operator+(const Matrix<T>& matrix,T to_add){
         return matrix+Matrix<T>(matrix.dim,to_add);
-    };
+    }
 
     template <class T>
     Matrix<T> operator+(T to_add, const Matrix<T>& matrix){
         return matrix+to_add;
-    };
+    }
 
     template <class T>
     Matrix<T>& operator+=(Matrix<T>& matrix,T to_add){
         matrix=matrix+to_add;
         return matrix;
-    }; 
+    } 
 
     template <class T>
     class Matrix<T>::iterator{
@@ -294,7 +304,7 @@ namespace mtm{
             return *this;
         }; 
         T& operator*() const {
-            if(index >= matrix.size()){
+            if(index >= matrix->size()){
                 throw Matrix::AccessIllegalElement();
             }
             int row = index/(*matrix).width();
@@ -324,19 +334,24 @@ namespace mtm{
         const_iterator(const Matrix<T>* matrix,int index):matrix(matrix),index(index){};
         // postfix
         const_iterator operator++(int){ 
-            ++index;
-            return *this;
+            const_iterator result=*this;
+            ++*this;
+            return result;
+            
         }; 
         // prefix
         const_iterator& operator++(){
-            iterator result=*this;
-            ++*this;
-            return result;
+            ++index;
+            return *this;
         }; 
-        int operator*() const{
-            if(index >= matrix.size()){
+        T operator*() const{
+
+            if(index >= matrix->size()){
                 throw Matrix::AccessIllegalElement();
             }
+            int row = index/(*matrix).width();
+            int col = index%(*matrix).width();
+            return (*matrix).rows[row].get(col);
         };
         bool operator==(const const_iterator& to_compare) const{
             if (matrix==to_compare.matrix && index==to_compare.index){
