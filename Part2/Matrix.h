@@ -8,7 +8,7 @@
 #include <exception>
 #include "Vector.h"
 #include "Auxiliaries.h"
-#include <stdexcept>
+
 
 namespace mtm{
     enum logical_operator {eq,neq,lt,gt,lte,gte};
