@@ -73,7 +73,7 @@ namespace mtm{
             public:
             DimensionMismatch(const Dimensions& dim1,const Dimensions& dim2) : dim1(dim1),dim2(dim2){};
             const char* what() {
-                return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str();
+                return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str;
             }
         };
         //Previous exeptions- inherited from runtime_error, it's a shame we can't use them..

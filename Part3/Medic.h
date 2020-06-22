@@ -6,6 +6,7 @@ namespace mtm{
 
     class Medic: public Character{
     
+
         public:
         Character* clone() const override;
         
