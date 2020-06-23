@@ -50,7 +50,7 @@ namespace mtm{
         friend std::ostream& operator<<(std::ostream& os,const IntMatrix& to_print);
 
         int& operator()(int row,int col);
-        int operator()(int row,int col) const;
+        const int operator()(int row,int col) const;
 
 
         class iterator;  
@@ -92,7 +92,7 @@ namespace mtm{
 
         const_iterator operator++(int); // postfix
         const_iterator& operator++(); // prefix
-        int operator*() const;
+        const int operator*() const;
         bool operator==(const const_iterator& to_compare) const;
         bool operator!=(const const_iterator& to_compare) const;
 

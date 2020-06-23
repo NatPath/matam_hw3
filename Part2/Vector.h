@@ -18,7 +18,8 @@ class Vector{
            elements[i]=element;
        } 
     };
-    Vector<T>(const Vector<T>& v):size(v.size){//copy constructor
+//Assumes there is an assignment (=) for the type T
+    Vector<T>(const Vector<T>& v):size(v.size){
         elements=new T[v.size];
         for (int i=0; i<v.size;i++){
             elements[i]=v.elements[i];
@@ -32,6 +33,7 @@ class Vector{
         return size;
     }
 
+//Assumes there is an assignment (=) for the type T
      static Vector<T> Diagonal(int size,int index_of_value, T value){
         Vector new_vector(size,0);
         if (index_of_value<size){
@@ -40,7 +42,7 @@ class Vector{
         return new_vector;
     }
 
-
+//print function for Vector
     void print() const{
         std::cout<<elements[0];
         for (int i=1;i<size;i++){
@@ -49,7 +51,9 @@ class Vector{
         std::cout<<"\n";
 
     }
-    Vector<T>& operator=(const Vector<T> vector_a){//assignment operator
+//assignment operator
+//Assumes there is an assignment (=) for the type T
+    Vector<T>& operator=(const Vector<T> vector_a){
         if (this==&vector_a){
             return *this;
         }
@@ -61,6 +65,7 @@ class Vector{
         }
         return *this;
     }
+    //returns a reference to the element at a given index 
     T& operator[](int index)const{
         return elements[index];        
     }
@@ -69,6 +74,7 @@ class Vector{
 /**
  * transpose - gets a pointer to vectors as rows and returns pointer to vectors as columns 
 **/
+//Assumes there is an assignment (=) for the type T
     static Vector<T>* transpose(const Vector<T>* original, int original_row_num){
         int new_row_num = original[0].getSize();
         Vector<T>* transposed = new Vector<T>[new_row_num];
@@ -82,7 +88,7 @@ class Vector{
         return transposed;
     
     }
-
+/*  ??same functionality as operator[]??
     T& getReference(int index){ // returns reference to element at given index
         return elements[index];
     }
@@ -90,18 +96,26 @@ class Vector{
     T get(int index){ // returns element at given index
         return elements[index];
     }
+*/
+/**
+ * ARITHMETIC OPERATORS
+ * */
+//Assumes there is "+="" operator for the type T
     Vector<T>& operator+=(const Vector<T> to_add){
         for (int i=0;i<to_add.size;i++){
             elements[i]+=to_add[i];
         }
         return *this;
     }
+
+//Assumes there is "-="" operator for the type T
     Vector<T>& operator-=(const Vector<T> to_subtract){
         for (int i=0;i<to_subtract.size;i++){
             elements[i]-=to_subtract[i];
         }
         return *this;
     }
+//Assumes there is "-"" operator for the type T
     Vector<T> operator-()const{
         Vector<T> new_vector(size);
         for (int i=0; i<size;i++){
@@ -110,10 +124,18 @@ class Vector{
         return new_vector;
     }
 
+/** 
+ * BOOLEAN OPERATORS
+ * Gets an element of type T (compare) to compare with all the elements of the vector
+    Returns a Vector of booleans indicating which elements (i) of the Vector are  i(OPERATOR)compare 
+    Assumptions on type T: 
+        Must have assignment operator
+        Must have == operator which returns a booleans
+ **/
     Vector<bool> operator==(T compare)const{
         Vector<bool> new_vector(size,false);
         for(int i = 0; i<size; i++){
-            new_vector.getReference(i) = (elements[i] == compare);
+            new_vector[i] = (elements[i] == compare);
         }
         return new_vector;
     }
@@ -121,7 +143,7 @@ class Vector{
      Vector<bool> operator!=(T compare)const{
         Vector<bool> new_vector(size,false);
         for(int i = 0; i<size; i++){
-            new_vector.getReference(i) = (elements[i] != compare);
+            new_vector[i] = (elements[i] != compare);
         }
         return new_vector;
     }
@@ -129,7 +151,8 @@ class Vector{
     Vector<bool> operator<(T compare)const{
         Vector<bool> new_vector(size,false);
         for(int i = 0; i<size; i++){
-            new_vector.getReference(i) = (elements[i] < compare);
+            //new_vector.getReference(i) = (elements[i] < compare);
+            new_vector[i] = (elements[i] < compare);
         }
         return new_vector;
     }
@@ -137,7 +160,8 @@ class Vector{
      Vector<bool> operator>(T compare)const{
         Vector<bool> new_vector(size,false);
         for(int i = 0; i<size; i++){
-            new_vector.getReference(i) = (elements[i] > compare);
+            //new_vector.getReference(i) = (elements[i] > compare);
+            new_vector[i] = (elements[i] > compare);
         }
         return new_vector;
     }
@@ -145,7 +169,8 @@ class Vector{
     Vector<bool> operator<=(T compare)const{
         Vector<bool> new_vector(size,false);
         for(int i = 0; i<size; i++){
-            new_vector.getReference(i) = (elements[i] <= compare);
+            //new_vector.getReference(i) = (elements[i] <= compare);
+            new_vector[i] = (elements[i] <= compare);
         }
         return new_vector;
     }
@@ -153,7 +178,8 @@ class Vector{
      Vector<bool> operator>=(T compare)const{
         Vector<bool> new_vector(size,false);
         for(int i = 0; i<size; i++){
-            new_vector.getReference(i) = (elements[i] >= compare);
+            //new_vector.getReference(i) = (elements[i] >= compare);
+            new_vector[i] = (elements[i] >= compare);
         }
         return new_vector;
     }

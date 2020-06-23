@@ -90,11 +90,13 @@ namespace mtm{
     }
 
     int& IntMatrix::operator()(int row, int col){
-        return rows[row].getReference(col);    
+        //return rows[row].getReference(col);    
+        return rows[row][col];    
     }
 
-    int IntMatrix::operator()(int row,int col) const{
-        return rows[row].get(col);  
+    const int IntMatrix::operator()(int row,int col) const{
+        //return rows[row].get(col);  
+        return rows[row][col];  
      }
 
 
@@ -175,7 +177,8 @@ namespace mtm{
             }
             for (int j = 0; j < width(); j++)
             {
-                result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
+                //result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
+                result.rows[i][j] = compared_row[j] ? 1 : 0;
             }
         }
         return result;
@@ -233,7 +236,8 @@ namespace mtm{
     int& IntMatrix::iterator::operator*() const{
         int row = index/(*matrix).width();
         int col = index%(*matrix).width();
-        return (*matrix).rows[row].getReference(col);
+        //return (*matrix).rows[row].getReference(col);
+        return (*matrix).rows[row][col];
     }
 
     bool IntMatrix::iterator::operator==(const iterator& to_compare) const{
@@ -258,10 +262,11 @@ namespace mtm{
         return const_iterator(this,size());
     }
 
-    int IntMatrix::const_iterator::operator*() const{
+    const int IntMatrix::const_iterator::operator*() const{
         int row = index/(*matrix).width();
         int col = index%(*matrix).width();
-        return (*matrix).rows[row].get(col);
+        //return (*matrix).rows[row].get(col);
+        return (*matrix).rows[row][col];
     }
 
     IntMatrix::const_iterator& IntMatrix::const_iterator::operator++(){

@@ -38,7 +38,7 @@ void testMakeMatrices(){
         try{
             string_mat_op=string_mat_op;
             string_mat_op=string_mat_op+string_mat4;
-        }catch(Exception e){
+        }catch(Exception& e){
             std::cout<<e.what()<<std::endl;
         }
 
@@ -51,7 +51,7 @@ void testMakeMatrices(){
 
 
     }
-    catch(Exception e){
+    catch(Exception& e){
         std::cout<<e.what()<<std::endl;
     }
 }
@@ -66,7 +66,7 @@ void testTranspose(){
     Matrix<std::string> string_mat2(dim2,"W");
     try{
         string_mat1=string_mat1+string_mat2;
-    }catch(Exception e){
+    }catch(Exception& e){
         std::cout<<e.what()<<std::endl;
     }
     string_mat1(0,1)=std::string("0");
@@ -80,17 +80,29 @@ void testTranspose(){
     try{
         string_mat1=string_mat1+string_mat2;
         std::cout<<string_mat1<<std::endl;
-    }catch(Exception e){
+    }catch(Exception& e){
         std::cout<<e.what()<<std::endl;
     }
 
-    
+}
+void testLogicalOperators(){
+    Dimensions dim(3,3);
+    Matrix<int> mat1 = Matrix<int>::Diagonal(3,1);
+    Matrix<int> mat2 = Matrix<int>::Diagonal(3,2);
+    Matrix<int> mat3 = Matrix<int>::Diagonal(3,3);
 
+    std::cout<< (mat1<1) <<std::endl;
+    std::cout<< (mat2>1) <<std::endl;
+    std::cout<< (mat2>=0) <<std::endl;
+    std::cout<< (mat3<=2) <<std::endl;
+    std::cout<< (mat3==3) <<std::endl;
+    std::cout<< (mat3!=3) <<std::endl;
 
 
 }
 int main(){
     testMakeMatrices();
     testTranspose();
+    testLogicalOperators();
 
 }
