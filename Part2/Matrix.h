@@ -229,7 +229,7 @@ namespace mtm{
             return rows[row][col];    
 
         };
-        T operator()(int row,int col) const{
+        const T operator()(int row,int col) const{
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
