@@ -45,7 +45,8 @@ namespace mtm{
                 }
                 for (int j = 0; j < width(); j++)
                 {
-                    result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
+                    //result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
+                    result.rows[i][j] = compared_row[j] ? 1 : 0;
                 }
             }
             return result;
@@ -54,7 +55,7 @@ namespace mtm{
         
 
         public:
-
+// can we put this part in another file?
         class AccessIllegalElement: public Exception {
             public:
             const char* what() const noexcept override{
@@ -73,7 +74,7 @@ namespace mtm{
             public:
             DimensionMismatch(const Dimensions& dim1,const Dimensions& dim2) : dim1(dim1),dim2(dim2){};
             const char* what() {
-                return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str;
+                return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str();
             }
         };
         //Previous exeptions- inherited from runtime_error, it's a shame we can't use them..
@@ -224,13 +225,16 @@ namespace mtm{
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
-            return rows[row].getReference(col);    
+            //return rows[row].getReference(col);    
+            return rows[row][col];    
+
         };
-        T operator()(int row,int col) const{
+        const T operator()(int row,int col) const{
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
-            return rows[row].get(col);  
+            //return rows[row].get(col);  
+            return rows[row][col];  
         };
 
 
@@ -335,7 +339,8 @@ namespace mtm{
             }
             int row = index/(*matrix).width();
             int col = index%(*matrix).width();
-            return (*matrix).rows[row].getReference(col);
+            //return (*matrix).rows[row].getReference(col);
+            return (*matrix).rows[row][col];
         };
         bool operator==(const iterator& to_compare) const {
             if (matrix==to_compare.matrix && index==to_compare.index){
@@ -370,14 +375,15 @@ namespace mtm{
             ++index;
             return *this;
         }; 
-        T operator*() const{
+        const T operator*() const{
 
             if(index >= matrix->size()){
                 throw Matrix::AccessIllegalElement();
             }
             int row = index/(*matrix).width();
             int col = index%(*matrix).width();
-            return (*matrix).rows[row].get(col);
+            //return (*matrix).rows[row].get(col);
+            return (*matrix).rows[row][col];
         };
         bool operator==(const const_iterator& to_compare) const{
             if (matrix==to_compare.matrix && index==to_compare.index){
