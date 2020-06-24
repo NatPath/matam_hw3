@@ -1,7 +1,7 @@
 #ifndef _GAME_EXCEPTIONS_H_
 #define _GAME_EXCEPTIONS_H_
-
 #include "Game.h"
+
 namespace mtm{
 
     class Game::Exception:public mtm::Exception{

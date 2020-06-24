@@ -5,6 +5,7 @@
 #include "Soldier.h"
 #include "Medic.h"
 #include "Sniper.h"
+#include "Game_Exceptions.h"
 
 
 namespace mtm{

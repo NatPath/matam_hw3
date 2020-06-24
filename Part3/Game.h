@@ -1,7 +1,6 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include <memory>
 #include "Auxiliaries.h"
 #include "Matrix.h"
 #include "Cell.h"
@@ -10,7 +9,6 @@
 
 
 namespace mtm{
-    typedef std::shared_ptr<Character> Character_ptr;
     class Game{
         Matrix<Character_ptr> board;
 
