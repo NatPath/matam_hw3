@@ -1,5 +1,7 @@
 #include "Soldier.h"
 
+#define SMALL_S 's'
+#define BIG_S 'S'
 namespace mtm{
 
     Soldier::Soldier(mtm::Team team,mtm::units_t health, mtm::units_t ammo, mtm::units_t range, mtm::units_t power):
@@ -30,5 +32,13 @@ namespace mtm{
                 target->changeHealth(damage);
             }
         }
+    }
+
+    const char Soldier::getSymbol(){
+        if (team==PYTHON){
+            return SMALL_S;
+        }
+        return BIG_S;
+
     }
 }

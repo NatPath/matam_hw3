@@ -39,7 +39,9 @@ namespace mtm{
         //attacks certain location on board, according to specifiec class rules. Returns true iff attack succeeded.
         virtual void attack(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates) = 0;
         mtm::Team getTeam();
-        
+
+        virtual const char getSymbol() = 0;
+
 
     };
 

@@ -8,13 +8,13 @@
 #include "Exceptions.h"
 
 
-namespace mtm{
 
+namespace mtm{
     Game::Game(int height, int width){
         if (height<=0 || width <=0){
             throw IllegalArgument();
         }
-        Matrix<Character_ptr> new_board(Dimensions(height,width)); 
+        Board new_board(Dimensions(height,width)); 
         board = new_board;
     }
 
@@ -104,7 +104,33 @@ namespace mtm{
         to_reload->reload();
     }
 
-    std::ostream& printGameBoard(std::ostream& os, const char* begin, const char* end, unsigned int width) const;
+    const char characterTochar(const Character_ptr to_convert){
+        if(to_convert == nullptr){
+            return EMPTY_CHAR;
+        }
+        return to_convert->getSymbol();
+    }
+    std::ostream& operator<<(std::ostream& os,const Game& to_print){
+        const Board board_to_print=to_print.board;
+        /**
+         * should find a different way to do that 
+         * */
+        char* chars_to_print = new char[board_to_print.size()+1];
+
+        int index=0;
+        try{
+            Board::const_iterator i=board_to_print.begin();
+            for (; i!=board_to_print.end();i++, index++){
+                chars_to_print[index]= characterToChar(*i);
+            }
+        }
+        catch(...){
+            delete[] chars_to_print;
+            throw;
+        }
+        return printGameBoard(os,chars_to_print,chars_to_print+index,board_to_print.width());
+
+    }
 
 
 

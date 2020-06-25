@@ -7,8 +7,10 @@
 
 
 namespace mtm{
+    class Game;
+    typedef Matrix<Character_ptr> Board;
     class Game{
-        Matrix<Character_ptr> board;
+        Board board;
 
         //checks if coordinates are in the scope of the board
         bool inScope(const GridPoint& coordinates) const;
@@ -46,12 +48,12 @@ namespace mtm{
         void move(const GridPoint& src_coordinates, const GridPoint& dst_coordinates);
         void attack(const GridPoint& src_coordinates, const GridPoint& dst_coordinates);
         void reload(const GridPoint& coordinates);
-        std::ostream& printGameBoard(std::ostream& os, const char* begin, const char* end, unsigned int width) const;
+        friend std::ostream& operator<<(std::ostream& os,const Game& to_print) const;
         bool isOver(Team* winningTeam=NULL) const;
 
-        
-
     };
+    //converts a given Character_ptr to a char ready for printing
+    const char characterToChar(Character_ptr to_convert);
 }
 
 #endif

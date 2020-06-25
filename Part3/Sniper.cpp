@@ -1,9 +1,11 @@
 #include "Sniper.h"
 
+#define SMALL_N 'n'
+#define BIG_N 'N'
 namespace mtm{
 
     Sniper::Sniper(mtm::Team team,mtm::units_t health, mtm::units_t ammo, mtm::units_t range, mtm::units_t power):
-    Character(team,health,ammo,range,power,4,2){combo_counter = 0;}
+    Character(team,health,ammo,range,power,4,2),symbol('N'){combo_counter = 0;}
 
     Character* Sniper::clone() const{
         return new Sniper(*this);
@@ -22,5 +24,13 @@ namespace mtm{
             damage*=2;
         }
         target->changeHealth(damage);
+    }
+
+    const char Sniper::getSymbol(){
+        if (team==PYTHON){
+            return SMALL_N;
+        }
+        return BIG_N;
+
     }
 }

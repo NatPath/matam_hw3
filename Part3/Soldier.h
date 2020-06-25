@@ -12,6 +12,8 @@ namespace mtm{
         Character* clone() const override;
         void attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) override;
 
+        const char getSymbol() override;
+
 
 
 

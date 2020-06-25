@@ -23,10 +23,16 @@ namespace mtm{
             int total_size=matrix_height*matrix_width;
 
             T* flat_matrix= new T[total_size];
-            for (int i=0;i<matrix_height;i++){
-                for(int j=0;j<matrix_width;j++){
-                    flat_matrix[i*matrix_width+j]=rows[i][j];
+            try{
+                for (int i=0;i<matrix_height;i++){
+                    for(int j=0;j<matrix_width;j++){
+                        flat_matrix[i*matrix_width+j]=rows[i][j];
+                    }
                 }
+            }
+            catch(...){
+                delete[] T;
+                throw;
             }
             return flat_matrix;
         };
@@ -118,13 +124,18 @@ namespace mtm{
                 return *this;
             }
             Vector<T>* data_temp=new Vector<T>[mat.height()];
-            //Matrix<T> data_temp(dim);
-            for (int i=0;i<mat.height();i++){
-                data_temp[i]=mat.rows[i];
+            try{
+                for (int i=0;i<mat.height();i++){
+                    data_temp[i]=mat.rows[i];
+                }
+                delete[] rows;
+                this->dim = mat.dim;
+                this->rows= data_temp;
             }
-            delete[] rows;
-            this->dim = mat.dim;
-            this->rows= data_temp;
+            catch(...){
+                delete[] data_temp;
+                throw;
+            }
             return *this;
         };
         static Matrix<T> Diagonal(int dimension, T value){
