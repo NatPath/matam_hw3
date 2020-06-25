@@ -3,16 +3,27 @@
 
 #include "Auxiliaries.h"
 #include "Matrix.h"
-#include "Cell.h"
 #include "Character.h"
-#include "Game_Exceptions.h"
 
 
 namespace mtm{
     class Game{
         Matrix<Character_ptr> board;
 
-        bool inScope(const GridPoint& coordinates) const;//checks if coordinates are in the scope of the board
+        //checks if coordinates are in the scope of the board
+        bool inScope(const GridPoint& coordinates) const;
+
+        //gets a reference to Character_ptr from the specific coordinates given. Will throw CellEmpty if it is so
+        Character_ptr& getCharacter(const GridPoint& coordinates);
+
+        //checks if the legal GridPoint contains a well made Character
+        bool containsCharacter(const GridPoint& coordinates) ;
+
+        //checks if a "coordinate to coordinate" action is legal, if it isn't throws the fitting exception 
+        //a better name is needed
+        void cordToCordCheck(const GridPoint& src_coordinates, const GridPoint& dst_coordinates); 
+
+
         public:
         //Exceptions
         class Exception;

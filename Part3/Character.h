@@ -3,11 +3,12 @@
 
 #include "Auxiliaries.h";
 #include "Matrix.h";
-#include "Game_Exceptions.h";
+#include "Exceptions.h";
 #include "math.h"
 #include <memory>
 
 namespace mtm{
+    class Character;
     typedef std::shared_ptr<Character> Character_ptr;
     class Character{
 
@@ -30,12 +31,13 @@ namespace mtm{
         void changeAmmo(int amount);
         void reload();
         void changeHealth(int amount);
-        void checkAttackValid(GridPoint& src_coordinates, GridPoint& dst_coordinates);
-        void attackWrapper(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates);
+        void checkMovementValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
+        void checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
+        void attackWrapper(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
         mtm::units_t getMovementSpeed();
 
         //attacks certain location on board, according to specifiec class rules. Returns true iff attack succeeded.
-        virtual void attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) = 0;
+        virtual void attack(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates) = 0;
         mtm::Team getTeam();
         
 

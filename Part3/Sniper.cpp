@@ -10,11 +10,11 @@ namespace mtm{
     }
     void Sniper::attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) { 
         if(GridPoint::distance(src_coordinates,dst_coordinates) < ceil(range/2)){
-            throw Game::OutOfRange;
+            throw Game::OutOfRange();
         }
         Character* target = *(board(src_coordinates.row,dst_coordinates.col));
         if(target->getTeam() == team){
-            throw Game::IllegalTarget;
+            throw Game::IllegalTarget();
         }
         int damage = -power;
         if(++combo_counter == 3){

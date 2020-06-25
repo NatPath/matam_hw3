@@ -6,14 +6,14 @@ namespace mtm{
     Character(team,health,ammo,range,power,5,5){}
 
     Character* Soldier::clone() const{
-        return new Medic(*this);
+        return new Soldier(*this);
     }
     
 
     void Soldier::attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) {
         Character* target = *(board(dst_coordinates.row,dst_coordinates.col));
         if(src_coordinates.row != dst_coordinates.row && src_coordinates.col != dst_coordinates.col){ // make sure to update according to forum response
-            throw Game::IllegalTarget;
+            throw Game::IllegalTarget();
         }
     
         Character* target;

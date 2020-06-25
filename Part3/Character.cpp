@@ -1,4 +1,5 @@
 #include "Character.h"
+
 namespace mtm{
         Character::Character(mtm::Team team,mtm::units_t health, mtm::units_t ammo, mtm::units_t range,
         mtm::units_t power, mtm::units_t movement_speed, mtm::units_t reload_amount)   
@@ -13,17 +14,26 @@ namespace mtm{
 
        
 
-        void Character::checkAttackValid(GridPoint& src_coordinates, GridPoint& dst_coordinates){
-            if(GridPoint::distance(src_coordinates,dst_coordinates)>range){
-                throw Game::OutOfRange;
+        void Character::checkMovementValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
+            if(GridPoint::distance(src_coordinates,dst_coordinates) > movement_speed){
+                throw Game::MoveTooFar();
             }  
             if(ammo<=0){
-                throw Game::OutOfAmmo;
+                throw Game::OutOfAmmo();
+            }
+
+        }
+        void Character::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
+            if(GridPoint::distance(src_coordinates,dst_coordinates)>range){
+                throw Game::OutOfRange();
+            }  
+            if(ammo<=0){
+                throw Game::OutOfAmmo();
             }
         }
         
 
-        void Character::attackWrapper(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates){
+        void Character::attackWrapper(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
             checkAttackValid(src_coordinates,dst_coordinates);
             attack(board,src_coordinates,dst_coordinates);
             changeAmmo(-1);

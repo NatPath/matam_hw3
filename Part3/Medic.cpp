@@ -13,7 +13,7 @@ namespace mtm{
     void Medic::attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) {
         Character* target = *(board(dst_coordinates.row,dst_coordinates.col));
         if(target == nullptr || src_coordinates == dst_coordinates){
-            throw Game::IllegalTarget;
+            throw Game::IllegalTarget();
         }
         int health_amount = -power;
         if(target->getTeam() == team){
