@@ -23,16 +23,10 @@ namespace mtm{
             int total_size=matrix_height*matrix_width;
 
             T* flat_matrix= new T[total_size];
-            try{
-                for (int i=0;i<matrix_height;i++){
-                    for(int j=0;j<matrix_width;j++){
-                        flat_matrix[i*matrix_width+j]=rows[i][j];
-                    }
+            for (int i=0;i<matrix_height;i++){
+                for(int j=0;j<matrix_width;j++){
+                    flat_matrix[i*matrix_width+j]=rows[i][j];
                 }
-            }
-            catch(...){
-                delete[] flat_matrix;
-                throw;
             }
             return flat_matrix;
         };
@@ -61,7 +55,7 @@ namespace mtm{
         
 
         public:
-// can we put this part in another file?
+
         class AccessIllegalElement: public Exception {
             public:
             const char* what() const noexcept override{
@@ -124,18 +118,13 @@ namespace mtm{
                 return *this;
             }
             Vector<T>* data_temp=new Vector<T>[mat.height()];
-            try{
-                for (int i=0;i<mat.height();i++){
-                    data_temp[i]=mat.rows[i];
-                }
-                delete[] rows;
-                this->dim = mat.dim;
-                this->rows= data_temp;
+            //Matrix<T> data_temp(dim);
+            for (int i=0;i<mat.height();i++){
+                data_temp[i]=mat.rows[i];
             }
-            catch(...){
-                delete[] data_temp;
-                throw;
-            }
+            delete[] rows;
+            this->dim = mat.dim;
+            this->rows= data_temp;
             return *this;
         };
         static Matrix<T> Diagonal(int dimension, T value){

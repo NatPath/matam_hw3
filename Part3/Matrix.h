@@ -36,8 +36,8 @@ namespace mtm{
             }
             return flat_matrix;
         };
-        Matrix<T> applyLogicalOperator(T compare, logical_operator operation) const{
-            Matrix result(dim);
+        Matrix<bool> applyLogicalOperator(T compare, logical_operator operation) const{
+            Matrix<bool> result(dim);
             Vector<bool> compared_row;
             for (int i = 0; i < height(); i++)
             {

@@ -35,9 +35,9 @@ class Vector{
 
 //Assumes there is an assignment (=) for the type T
      static Vector<T> Diagonal(int size,int index_of_value, T value){
-        Vector new_vector(size,0);
+        Vector<T> new_vector(size,0);
         if (index_of_value<size){
-            new_vector.elements[index_of_value]=value;
+            new_vector[index_of_value]=value;
         }
         return new_vector;
     }
@@ -78,18 +78,12 @@ class Vector{
     static Vector<T>* transpose(const Vector<T>* original, int original_row_num){
         int new_row_num = original[0].getSize();
         Vector<T>* transposed = new Vector<T>[new_row_num];
-        try{
-            for(int i = 0; i<new_row_num; i++){
-                Vector<T> current_row = Vector<T>(original_row_num);
-                for(int j = 0; j<original_row_num; j++){
-                    current_row.elements[j] = original[j].elements[i];
-                }
-                transposed[i] = current_row;
+        for(int i = 0; i<new_row_num; i++){
+            Vector<T> current_row = Vector<T>(original_row_num);
+            for(int j = 0; j<original_row_num; j++){
+                current_row.elements[j] = original[j].elements[i];
             }
-        }
-        catch(...){
-            delete[] transposed;
-            throw;
+            transposed[i] = current_row;
         }
         return transposed;
     
