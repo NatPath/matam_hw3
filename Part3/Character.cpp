@@ -16,16 +16,15 @@ namespace mtm{
 
         void Character::checkMovementValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
             if(GridPoint::distance(src_coordinates,dst_coordinates) > movement_speed){
-                throw Game::MoveTooFar();
+                throw MoveTooFar();
             }  
-
         }
         void Character::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
             if(GridPoint::distance(src_coordinates,dst_coordinates)>range){
-                throw Game::OutOfRange();
+                throw OutOfRange();
             }  
             if(ammo<=0){
-                throw Game::OutOfAmmo();
+                throw OutOfAmmo();
             }
         }
         

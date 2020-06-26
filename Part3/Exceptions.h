@@ -1,52 +1,52 @@
 #ifndef _GAME_EXCEPTIONS_H_
 #define _GAME_EXCEPTIONS_H_
-#include "Game.h"
 
 namespace mtm{
 
     class GameException:public Exception{
-        const std::string error;
+        //const std::string error;
+        const char* error_msg;
         public:
-        GameException(const std::string error):error(error){};
-        const char* what() const noexcept override{
-            return std::string("A game related error has occurred:"+error).c_str();
+        GameException(const std::string error){error_msg =  std::string("A game related error has occurred:"+error).c_str();};
+        const char* what() const noexcept override{         
+            return error_msg;
         };
     };
 
-    class Game::IllegalArgument: public GameException{
+    class IllegalArgument: public GameException{
         public:
         IllegalArgument():GameException("IllegalArgument"){};
         
     };
 
-    class Game::IllegalCell: public GameException{ 
+    class IllegalCell: public GameException{ 
         public:
         IllegalCell():GameException("IllegalCell"){};
         
     };
-    class Game::CellEmpty: public GameException{ 
+    class CellEmpty: public GameException{ 
         public:
         CellEmpty():GameException("CellEmpty"){};
     };
-    class Game::MoveTooFar: public GameException{ 
+    class MoveTooFar: public GameException{ 
         public:
         MoveTooFar():GameException("MoveTooFar"){};
         
     };
-    class Game::CellOccupied: public GameException{
+    class CellOccupied: public GameException{
         public:
         CellOccupied():GameException("CellOccupied"){};
         
     };
-    class Game::OutOfRange: public GameException{ 
+    class OutOfRange: public GameException{ 
         public:
         OutOfRange():GameException("OutOfRange"){};
     };
-    class Game::OutOfAmmo: public GameException{ 
+    class OutOfAmmo: public GameException{ 
         public:
         OutOfAmmo():GameException("OutOfAmmo"){};
     };
-    class Game::IllegalTarget: public GameException{ 
+    class IllegalTarget: public GameException{ 
         public:
         IllegalTarget():GameException("OutOfAmmo"){};
     };

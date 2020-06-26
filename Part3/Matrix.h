@@ -31,7 +31,7 @@ namespace mtm{
                 }
             }
             catch(...){
-                delete[] T;
+                delete[] flat_matrix;
                 throw;
             }
             return flat_matrix;

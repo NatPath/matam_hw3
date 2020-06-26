@@ -19,6 +19,27 @@ namespace mtm{
     {
         throw IllegalArgument();
     }
+    Game::Game(const Game& to_copy):board(Dimensions(to_copy.board.height(),to_copy.board.width()),nullptr){
+       Board::iterator iterator_of_new= board.begin();
+       Board::const_iterator iterator_of_to_copy= to_copy.board.begin();
+       for (;iterator_of_new != board.end(); iterator_of_new++,iterator_of_to_copy++){
+           (*iterator_of_new) = Character_ptr((*iterator_of_to_copy)->clone());
+       } 
+    }
+
+    Game& Game::operator=(const Game& to_copy){
+        if (this == &to_copy){
+            return *this;
+        }
+       Board temp(Dimensions(to_copy.board.height(),to_copy.board.width()),nullptr);
+       Board::iterator iterator_of_new= temp.begin();
+       Board::const_iterator iterator_of_to_copy= to_copy.board.begin();
+       for (;iterator_of_new != board.end(); iterator_of_new++,iterator_of_to_copy++){
+           (*iterator_of_new) = Character_ptr((*iterator_of_to_copy)->clone());
+       } 
+       board=temp;
+       return *this;
+    }
     
 
 
@@ -107,7 +128,7 @@ namespace mtm{
         to_reload->reload();
     }
 
-    const char characterTochar(const Character_ptr to_convert){
+    const char characterToChar(const Character_ptr to_convert){
         if(to_convert == nullptr){
             return EMPTY_CHAR;
         }
@@ -115,23 +136,13 @@ namespace mtm{
     }
     std::ostream& operator<<(std::ostream& os,const Game& to_print){
         const Board board_to_print=to_print.board;
-        /**
-         * should find a different way to do that 
-         * */
-        char* chars_to_print = new char[board_to_print.size()+1];
-
         int index=0;
-        try{
-            Board::const_iterator i=board_to_print.begin();
-            for (; i!=board_to_print.end();i++, index++){
-                chars_to_print[index]= characterToChar(*i);
-            }
+        Vector<char> chars_to_print(board_to_print.size()+1);
+        Board::const_iterator i=board_to_print.begin();
+        for (; i!=board_to_print.end();i++, index++){
+            chars_to_print[index]= characterToChar(*i);
         }
-        catch(...){
-            delete[] chars_to_print;
-            throw;
-        }
-        return printGameBoard(os,chars_to_print,chars_to_print+index,board_to_print.width());
+        return printGameBoard(os,&chars_to_print[0],&chars_to_print[index],board_to_print.width());
     }
 
     
@@ -147,6 +158,15 @@ namespace mtm{
                 cpp_count++;
             }
         }
+        
+        if(cpp_count * python_count == 0 && cpp_count+python_count != 0){
+           if(winningTeam!=NULL){
+               *winningTeam = (cpp_count==0)? PYTHON:CPP;
+           }
+           return true;
+        }
+        return false;
+        /*
         if ( cpp_count==0 && python_count!=0){
             if (winningTeam!=NULL){
                 *winningTeam=PYTHON;
@@ -160,6 +180,7 @@ namespace mtm{
             return true;
         }
         return false;
+        */
     }
 
 

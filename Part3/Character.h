@@ -1,9 +1,9 @@
 #ifndef _CHARACTER_H_
 #define _CHARACTER_H_
 
-#include "Auxiliaries.h";
-#include "Matrix.h";
-#include "Exceptions.h";
+#include "Auxiliaries.h"
+#include "Matrix.h"
+#include "Exceptions.h"
 #include "math.h"
 #include <memory>
 
@@ -12,15 +12,16 @@ namespace mtm{
     typedef std::shared_ptr<Character> Character_ptr;
     class Character{
 
-        mtm::units_t health;
-        mtm::units_t ammo;
 
         protected:
-        const mtm::units_t movement_speed; // find a better way to handle inheritance of "static" variables
-        const mtm::units_t reload_amount;
+        mtm::Team team;
+        mtm::units_t health;
+        mtm::units_t ammo;
         mtm::units_t range;
         mtm::units_t power;
-        mtm::Team team;
+        const mtm::units_t movement_speed; // find a better way to handle inheritance of "static" variables
+        const mtm::units_t reload_amount;
+         
 
         public:
         Character() = default;
@@ -32,7 +33,7 @@ namespace mtm{
         void reload();
         void changeHealth(int amount);
         void checkMovementValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
-        void checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
+        virtual void checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
         void attackWrapper(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
         mtm::units_t getMovementSpeed();
 

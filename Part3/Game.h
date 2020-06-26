@@ -8,6 +8,7 @@
 
 namespace mtm{
     class Game;
+
     typedef Matrix<Character_ptr> Board;
     class Game{
         Board board;
@@ -28,6 +29,7 @@ namespace mtm{
 
         public:
         //Exceptions
+        /*
         class Exception;
         class IllegalArgument;
         class IllegalCell;
@@ -37,23 +39,25 @@ namespace mtm{
         class OutOfRange;
         class OutOfAmmo;
         class IllegalTarget;
+        */
 
         
         Game(int height, int width);
-        Game(const Game& other)=default;
+        Game(const Game& other);
         ~Game()=default;
-        Game& operator=(const Game& other)=default;
+        Game& operator=(const Game& other);
         void addCharacter (const GridPoint& coordinates, Character_ptr character);
         static Character_ptr makeCharacter(CharacterType type, Team team,units_t health, units_t ammo, units_t range, units_t power);
         void move(const GridPoint& src_coordinates, const GridPoint& dst_coordinates);
         void attack(const GridPoint& src_coordinates, const GridPoint& dst_coordinates);
         void reload(const GridPoint& coordinates);
-        friend std::ostream& operator<<(std::ostream& os,const Game& to_print) const;
+        friend std::ostream& operator<<(std::ostream& os,const Game& to_print);
         bool isOver(Team* winningTeam=NULL) const;
 
     };
+    std::ostream& operator<<(std::ostream& os,const Game& to_print);
     //converts a given Character_ptr to a char ready for printing
-    const char characterToChar(Character_ptr to_convert);
+    const char characterToChar(const Character_ptr to_convert);
 }
 
 #endif
