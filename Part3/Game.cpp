@@ -8,15 +8,18 @@
 #include "Exceptions.h"
 
 
+#define EMPTY_CHAR ' ' 
 
 namespace mtm{
-    Game::Game(int height, int width){
-        if (height<=0 || width <=0){
-            throw IllegalArgument();
-        }
-        Board new_board(Dimensions(height,width)); 
-        board = new_board;
+    //no longer shows the error,
+    Game::Game(int height, int width)
+    try:board(Dimensions(height,width),nullptr)
+    {}
+    catch(Board::IllegalInitialization e)
+    {
+        throw IllegalArgument();
     }
+    
 
 
     bool Game::inScope(const GridPoint& coordinates) const{
@@ -129,7 +132,34 @@ namespace mtm{
             throw;
         }
         return printGameBoard(os,chars_to_print,chars_to_print+index,board_to_print.width());
+    }
 
+    
+    bool Game::isOver(Team* winningTeam) const{
+        //we can split this function abit.. 
+        int python_count=0;
+        int cpp_count=0;
+        for (Board::const_iterator i=board.begin(); i != board.end(); i++){
+            if ( (*i)->getTeam() == PYTHON){
+                python_count++;
+            }            
+            else if ( (*i)->getTeam() == CPP){
+                cpp_count++;
+            }
+        }
+        if ( cpp_count==0 && python_count!=0){
+            if (winningTeam!=NULL){
+                *winningTeam=PYTHON;
+            }
+            return true;
+        }
+        if ( cpp_count!=0 && python_count==0){
+            if(winningTeam!=NULL){
+                *winningTeam=CPP;
+            }
+            return true;
+        }
+        return false;
     }
 
 

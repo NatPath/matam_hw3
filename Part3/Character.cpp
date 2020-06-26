@@ -18,9 +18,6 @@ namespace mtm{
             if(GridPoint::distance(src_coordinates,dst_coordinates) > movement_speed){
                 throw Game::MoveTooFar();
             }  
-            if(ammo<=0){
-                throw Game::OutOfAmmo();
-            }
 
         }
         void Character::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){

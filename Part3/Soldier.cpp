@@ -12,7 +12,7 @@ namespace mtm{
     }
     
 
-    void Soldier::attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) {
+    void Soldier::attack(Matrix<Character_ptr> &board,const GridPoint& src_coordinates, const GridPoint& dst_coordinates) {
         Character* target = *(board(dst_coordinates.row,dst_coordinates.col));
         if(src_coordinates.row != dst_coordinates.row && src_coordinates.col != dst_coordinates.col){ // make sure to update according to forum response
             throw Game::IllegalTarget();

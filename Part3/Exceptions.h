@@ -4,7 +4,7 @@
 
 namespace mtm{
 
-    class GameException:public mtm::Exception{
+    class GameException:public Exception{
         const std::string error;
         public:
         GameException(const std::string error):error(error){};
@@ -13,40 +13,40 @@ namespace mtm{
         };
     };
 
-    class Game::IllegalArgument: public mtm::GameException{
+    class Game::IllegalArgument: public GameException{
         public:
         IllegalArgument():GameException("IllegalArgument"){};
         
     };
 
-    class Game::IllegalCell: public mtm::GameException{ 
+    class Game::IllegalCell: public GameException{ 
         public:
         IllegalCell():GameException("IllegalCell"){};
         
     };
-    class Game::CellEmpty: public mtm::GameException{ 
+    class Game::CellEmpty: public GameException{ 
         public:
         CellEmpty():GameException("CellEmpty"){};
     };
-    class Game::MoveTooFar: public mtm::GameException{ 
+    class Game::MoveTooFar: public GameException{ 
         public:
         MoveTooFar():GameException("MoveTooFar"){};
         
     };
-    class Game::CellOccupied: public mtm::GameException{
+    class Game::CellOccupied: public GameException{
         public:
         CellOccupied():GameException("CellOccupied"){};
         
     };
-    class Game::OutOfRange: public mtm::GameException{ 
+    class Game::OutOfRange: public GameException{ 
         public:
         OutOfRange():GameException("OutOfRange"){};
     };
-    class Game::OutOfAmmo: public mtm::GameException{ 
+    class Game::OutOfAmmo: public GameException{ 
         public:
         OutOfAmmo():GameException("OutOfAmmo"){};
     };
-    class Game::IllegalTarget: public mtm::GameException{ 
+    class Game::IllegalTarget: public GameException{ 
         public:
         IllegalTarget():GameException("OutOfAmmo"){};
     };

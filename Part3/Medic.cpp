@@ -12,7 +12,7 @@ namespace mtm{
     }
     
 
-    void Medic::attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) {
+    void Medic::attack(Matrix<Character_ptr> &board, const GridPoint& src_coordinates, const GridPoint& dst_coordinates) {
         Character* target = *(board(dst_coordinates.row,dst_coordinates.col));
         if(target == nullptr || src_coordinates == dst_coordinates){
             throw Game::IllegalTarget();

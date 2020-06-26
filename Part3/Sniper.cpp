@@ -10,7 +10,7 @@ namespace mtm{
     Character* Sniper::clone() const{
         return new Sniper(*this);
     }
-    void Sniper::attack(Matrix<Character_ptr> &board, GridPoint& src_coordinates, GridPoint& dst_coordinates) { 
+    void Sniper::attack(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates) { 
         if(GridPoint::distance(src_coordinates,dst_coordinates) < ceil(range/2)){
             throw Game::OutOfRange();
         }
