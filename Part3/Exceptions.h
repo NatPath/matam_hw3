@@ -4,12 +4,14 @@
 namespace mtm{
 
     class GameException:public Exception{
-        //const std::string error;
-        const char* error_msg;
+        std::string error;
+        
         public:
-        GameException(const std::string error){error_msg =  std::string("A game related error has occurred:"+error).c_str();};
-        const char* what() const noexcept override{         
-            return error_msg;
+        GameException(const std::string error_class){
+            error = std::string("A game related error has occurred:"+error_class);
+        };
+        const char* what() const noexcept override{ 
+            return error.c_str();
         };
     };
 
