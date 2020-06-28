@@ -45,7 +45,6 @@ int main(){
     vector<Road> roads;
     for (int i=0;i<100;i++){
         roads.push_back(Road(i,i));
-
     }
 
 
