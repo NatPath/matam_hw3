@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Cell.h"
 #include "Matrix.h"
 #include "Character.h"
 #include "Soldier.h"
@@ -23,7 +22,12 @@ namespace mtm{
        Board::iterator iterator_of_new= board.begin();
        Board::const_iterator iterator_of_to_copy= to_copy.board.begin();
        for (;iterator_of_new != board.end(); iterator_of_new++,iterator_of_to_copy++){
-           (*iterator_of_new) = Character_ptr((*iterator_of_to_copy)->clone());
+           if(*iterator_of_to_copy == nullptr){
+               (*iterator_of_new) = nullptr;
+           }
+           else{
+               (*iterator_of_new) = Character_ptr((*iterator_of_to_copy)->clone());
+           }
        } 
     }
 
@@ -34,8 +38,13 @@ namespace mtm{
        Board temp(Dimensions(to_copy.board.height(),to_copy.board.width()),nullptr);
        Board::iterator iterator_of_new= temp.begin();
        Board::const_iterator iterator_of_to_copy= to_copy.board.begin();
-       for (;iterator_of_new != board.end(); iterator_of_new++,iterator_of_to_copy++){
-           (*iterator_of_new) = Character_ptr((*iterator_of_to_copy)->clone());
+       for (;iterator_of_new != temp.end(); iterator_of_new++,iterator_of_to_copy++){
+           if(*iterator_of_to_copy == nullptr){
+               (*iterator_of_new) = nullptr;
+           }
+           else{
+               (*iterator_of_new) = Character_ptr((*iterator_of_to_copy)->clone());
+           }
        } 
        board=temp;
        return *this;
@@ -107,7 +116,7 @@ namespace mtm{
             throw CellOccupied();
         }
         getCharacter(dst_coordinates)=to_move;
-        to_move=nullptr;
+        getCharacter(src_coordinates)=nullptr;
     }
 
     void Game::attack(const GridPoint& src_coordinates, const GridPoint& dst_coordinates){
