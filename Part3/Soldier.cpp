@@ -26,7 +26,7 @@ namespace mtm{
             for(int j = 0; j< board.width(); j++){
                 target = board(i,j);
                 distance = GridPoint::distance(dst_coordinates,GridPoint(i,j));
-                if(distance > ceil(range/3) || target->getTeam() == team){
+                if(target == nullptr || distance > ceil(range/3) || target->getTeam() == team){
                     continue;
                 }
                 damage = (distance == 0)? -power:ceil(-power/2);
