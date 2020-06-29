@@ -77,10 +77,13 @@ namespace mtm{
         class DimensionMismatch: public Exception {
             Dimensions dim1;
             Dimensions dim2;
+            std::string error;
             public:
-            DimensionMismatch(const Dimensions& dim1,const Dimensions& dim2) : dim1(dim1),dim2(dim2){};
+            DimensionMismatch(const Dimensions& dim1,const Dimensions& dim2) : dim1(dim1),dim2(dim2){
+                error = std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString());
+            };
             const char* what() {
-                return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str();
+                return error.c_str();
             }
         };
         //Previous exeptions- inherited from runtime_error, it's a shame we can't use them..
@@ -211,22 +214,22 @@ namespace mtm{
 
 
         //logic operators
-        Matrix<T> operator==(T compare) const{
+        Matrix<bool> operator==(T compare) const{
             return applyLogicalOperator(compare,eq);
         };
-        Matrix<T> operator!=(T compare) const{
+        Matrix<bool> operator!=(T compare) const{
             return applyLogicalOperator(compare,neq);
         };
-        Matrix<T> operator<=(T compare) const{
+        Matrix<bool> operator<=(T compare) const{
             return applyLogicalOperator(compare,lte);
         };
-        Matrix<T> operator<(T compare) const{
+        Matrix<bool> operator<(T compare) const{
             return applyLogicalOperator(compare,lt);
         };
-        Matrix<T> operator>=(T compare) const{
+        Matrix<bool> operator>=(T compare) const{
             return applyLogicalOperator(compare,gte);
         };
-        Matrix<T> operator>(T compare) const{
+        Matrix<bool> operator>(T compare) const{
             return applyLogicalOperator(compare,gt);
         };
         template <class Y>
