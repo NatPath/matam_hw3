@@ -10,9 +10,8 @@
 #include <fstream>
 
 #include "Matrix.h"
-#include "Auxiliaries.h"
 
-#define DEPENDENCY_VERBOSE
+//#define NDEPENDENCY
 
 using namespace mtm;
 using std::cout;
@@ -274,7 +273,7 @@ bool testConstructor(){
         Matrix<T1> mat(Dimensions(-3,-3));
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         // Tests that IllegalInitialization extends std::exception
         std::exception e_test = e;
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
@@ -284,7 +283,7 @@ bool testConstructor(){
         Matrix<T1> mat(Dimensions(0,0));
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
     }
 
@@ -292,7 +291,7 @@ bool testConstructor(){
         Matrix<T1> mat(Dimensions(1,0));
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
     }
 
@@ -300,7 +299,7 @@ bool testConstructor(){
         Matrix<T1> mat(Dimensions(0,1));
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
     }
 
@@ -308,7 +307,7 @@ bool testConstructor(){
         Matrix<T1> mat(Dimensions(0,1), T1());
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
     }
 
@@ -466,7 +465,7 @@ bool testDiagonal(){
         Matrix<T1> mat2 = Matrix<T1>::Diagonal(0, T1("default"));
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
     }
 
@@ -474,7 +473,7 @@ bool testDiagonal(){
         Matrix<T1> mat2 = Matrix<T1>::Diagonal(-10, T1("default"));
         ASSERT_TEST(false);
     }
-    catch(Matrix<T1>::IllegalInitialization e){
+    catch(const Matrix<T1>::IllegalInitialization& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Illegal initialization values");
     }
 
@@ -548,7 +547,7 @@ bool testOperatorNegative(){
         Matrix<int> mat4 = mat3-mat;
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::DimensionMismatch e){
+    catch(const Matrix<int>::DimensionMismatch& e){
         // Tests that DimensionMismatch extends std::exception
         std::exception e_test = e;
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Dimension mismatch: (18,5) (17,5)");
@@ -598,7 +597,7 @@ bool testOperatorMatrixAddition(){
         Matrix<int> mat4 = mat5+mat;
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::DimensionMismatch e){
+    catch(const Matrix<int>::DimensionMismatch& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: Dimension mismatch: (18,5) (17,5)");
     }
 
@@ -681,7 +680,7 @@ bool testOperatorParenthesis(){
         matrix(1,0);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         // Tests that AccessIllegalElement extends std::exception
         std::exception e_test = e;
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
@@ -691,7 +690,7 @@ bool testOperatorParenthesis(){
         matrix(1,1);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -699,7 +698,7 @@ bool testOperatorParenthesis(){
         matrix(0,1);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -707,7 +706,7 @@ bool testOperatorParenthesis(){
         matrix(-1,0);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -715,7 +714,7 @@ bool testOperatorParenthesis(){
         matrix(0,-2);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -723,7 +722,7 @@ bool testOperatorParenthesis(){
         matrix(-1,-1);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -733,7 +732,7 @@ bool testOperatorParenthesis(){
         matrix2(1,0);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -741,7 +740,7 @@ bool testOperatorParenthesis(){
         matrix2(1,1);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -749,7 +748,7 @@ bool testOperatorParenthesis(){
         matrix2(0,1);
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -814,7 +813,7 @@ bool testIterator(){
         *it;
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -822,7 +821,7 @@ bool testIterator(){
         Matrix<int>::iterator it = mat.end();
         it++;
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(false);
     }
 
@@ -830,7 +829,7 @@ bool testIterator(){
         Matrix<int>::iterator it = mat.end();
         ++it;
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(false);
     }
 
@@ -839,7 +838,7 @@ bool testIterator(){
         *it;
         ASSERT_TEST(false);
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(string(e.what()) == "Mtm matrix error: An attempt to access an illegal element");
     }
 
@@ -847,7 +846,7 @@ bool testIterator(){
         Matrix<int>::const_iterator it = mat2.end();
         it++;
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(false);
     }
 
@@ -855,7 +854,7 @@ bool testIterator(){
         Matrix<int>::const_iterator it = mat2.end();
         ++it;
     }
-    catch(Matrix<int>::AccessIllegalElement e){
+    catch(const Matrix<int>::AccessIllegalElement& e){
         ASSERT_TEST(false);
     }
 
@@ -1016,7 +1015,7 @@ int main(){
 
     cout<<"Passed "<<passed<<" out of "<<tests.size()<<" tests."<<endl;
 
-    #ifdef DEPENDENCY_VERBOSE
+    #ifndef NDEPENDENCY
 
         std::fstream fout; 
         fout.open("dependencies.csv", std::ios::out); 
