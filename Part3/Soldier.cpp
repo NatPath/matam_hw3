@@ -26,13 +26,13 @@ namespace mtm{
             for(int j = 0; j< board.width(); j++){
                 target = board(i,j);
                 distance = GridPoint::distance(dst_coordinates,GridPoint(i,j));
-                if(target == nullptr || distance > ceil(range/3) || target->getTeam() == team){
+                if(target == nullptr || distance > ceil((double)range/3) || target->getTeam() == team){
                     continue;
                 }
-                damage = (distance == 0)? -power:-1*ceil(power/2);
+                damage = (distance == 0)? -power:-1*ceil((double)power/2);
                 target->changeHealth(damage);
                 if (target->isDead()){
-                    target=nullptr;
+                    board(i,j)=nullptr;
                 }
             }
         }

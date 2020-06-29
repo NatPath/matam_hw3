@@ -14,7 +14,7 @@ namespace mtm{
     }
     void Sniper::attack(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates) {
         Character_ptr target = board(dst_coordinates.row,dst_coordinates.col);
-        if(target->getTeam() == team || target == nullptr){
+        if( target == nullptr || target->getTeam() == team ){
             throw IllegalTarget();
         }
         int damage = -power;
@@ -30,7 +30,7 @@ namespace mtm{
 
     void Sniper::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
         int distance = GridPoint::distance(src_coordinates,dst_coordinates);
-        if( distance > range || distance < ceil(range/2)){
+        if( distance > range || distance < ceil((double)range/2)){
             throw OutOfRange();
         }  
         if(ammo<=0){

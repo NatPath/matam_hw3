@@ -293,6 +293,7 @@ bool testAttackGeneric(){
     ASSERT_NO_ERROR(game.attack(GridPoint(0,0), GridPoint(0,0)));
     ASSERT_TEST(checkGameContainsPlayerAt(game, GridPoint(0,0)));
     ASSERT_TEST(checkGameContainsPlayerAt(game, GridPoint(0,1)));
+    cout<<game<<endl;
     ASSERT_TEST(!checkGameContainsPlayerAt(game, GridPoint(1,0)));
     return true;
 }
