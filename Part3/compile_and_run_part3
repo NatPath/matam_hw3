@@ -1,5 +1,5 @@
 #!/bin/bash
 
-g++ -std=c++11 -Wall -Werror -pedantic-errors -I ../include -DNDEBUG Auxiliaries.cpp Character.cpp Game.cpp Medic.cpp Soldier.cpp Sniper.cpp testGame.cpp -g
+g++ -std=c++11 -Wall -Werror -pedantic-errors -I ../include -DNDEBUG Auxiliaries.cpp Character.cpp Game.cpp Medic.cpp Soldier.cpp Sniper.cpp test_partC.cpp -g
 
 valgrind --leak-check=full ./a.out

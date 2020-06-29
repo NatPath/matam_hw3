@@ -122,8 +122,12 @@ namespace mtm{
     void Game::attack(const GridPoint& src_coordinates, const GridPoint& dst_coordinates){
         cordToCordCheck(src_coordinates,dst_coordinates);
 
-        Character_ptr to_attack_with= getCharacter(src_coordinates);
+        Character_ptr to_attack_with = getCharacter(src_coordinates);
         to_attack_with->attackWrapper(board, src_coordinates, dst_coordinates);
+        
+        if(getCharacter(dst_coordinates)->isDead()){
+            getCharacter(dst_coordinates) = nullptr;
+        }
     }
 
     void Game::reload(const GridPoint& coordinates){

@@ -18,7 +18,7 @@ namespace mtm{
         IntMatrix applyLogicalOperator(int compare, logical_operator operation) const;
 
         public:
-        IntMatrix(Dimensions dim,int num=0);
+        explicit IntMatrix(Dimensions dim,int num=0);
         IntMatrix(const IntMatrix& mat);
         ~IntMatrix();
         IntMatrix& operator=(const IntMatrix& mat);

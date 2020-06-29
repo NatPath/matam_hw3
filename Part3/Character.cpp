@@ -12,6 +12,9 @@ namespace mtm{
             health+=amount;
         }
 
+        bool Character::isDead(){
+            return (health <= 0);
+        }
        
 
         void Character::checkMovementValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){

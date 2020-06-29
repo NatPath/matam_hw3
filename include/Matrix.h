@@ -80,31 +80,13 @@ namespace mtm{
             std::string error;
             public:
             DimensionMismatch(const Dimensions& dim1,const Dimensions& dim2) : dim1(dim1),dim2(dim2){
-                error = std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString());
+                error = std::string("Mtm matrix error: Dimension mismatch: "+dim1.toString() + " " + dim2.toString());
             };
             const char* what() {
                 return error.c_str();
             }
         };
-        //Previous exeptions- inherited from runtime_error, it's a shame we can't use them..
-        /*
-        class AccessIllegalElement: public std::runtime_error {
-            public:
-            AccessIllegalElement():std::runtime_error("Mtm matrix error: An attempt to access an illegal element"){};
-        };
-        class IllegalInitialization: public std::runtime_error {
-            public:
-            IllegalInitialization():std::runtime_error("Mtm matrix error: Illegal initialization values"){};
-            
-        };
-        class DimensionMismatch: public std::runtime_error {
-            public:
-            DimensionMismatch(Dimensions dim1, Dimensions dim2) :  std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString())
-            {
-            };
-        };
-        */
-        Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
+        explicit Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
             if(dim.getCol()<=0||dim.getRow()<=0){
                 throw IllegalInitialization();
             }
@@ -183,10 +165,12 @@ namespace mtm{
             if (dim!=to_add.dim){
                 throw DimensionMismatch(dim,to_add.dim);
             }
-            Matrix new_matrix=to_add;
+            //Matrix new_matrix=to_add;
+            Matrix new_matrix=*this;
             int matrix_height=height();
             for (int i=0;i<matrix_height;i++){
-                new_matrix.rows[i]+=rows[i];
+                //rows[i]+=new_matrix.rows[i];
+                new_matrix.rows[i]+=to_add.rows[i];
             }
             return new_matrix;
         };
@@ -318,7 +302,7 @@ namespace mtm{
 
     template <class T>
     Matrix<T> operator+(T to_add, const Matrix<T>& matrix){
-        return matrix+to_add;
+        return Matrix<T>(matrix.dim,to_add)+matrix;
     }
 
     template <class T>
