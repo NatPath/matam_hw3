@@ -83,24 +83,6 @@ namespace mtm{
                 return std::string("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString()).c_str();
             }
         };
-        //Previous exeptions- inherited from runtime_error, it's a shame we can't use them..
-        /*
-        class AccessIllegalElement: public std::runtime_error {
-            public:
-            AccessIllegalElement():std::runtime_error("Mtm matrix error: An attempt to access an illegal element"){};
-        };
-        class IllegalInitialization: public std::runtime_error {
-            public:
-            IllegalInitialization():std::runtime_error("Mtm matrix error: Illegal initialization values"){};
-            
-        };
-        class DimensionMismatch: public std::runtime_error {
-            public:
-            DimensionMismatch(Dimensions dim1, Dimensions dim2) :  std::runtime_error("Mtm matrix error: Dimensions mismatch: "+dim1.toString() + dim2.toString())
-            {
-            };
-        };
-        */
         Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
             if(dim.getCol()<=0||dim.getRow()<=0){
                 throw IllegalInitialization();
