@@ -52,7 +52,7 @@ namespace mtm{
                 for (int j = 0; j < width(); j++)
                 {
                     //result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
-                    result(i,j) = compared_row[j] ? 1 : 0;
+                    result.rows[i][j] = compared_row[j] ? 1 : 0;
                 }
             }
             return result;
@@ -211,22 +211,22 @@ namespace mtm{
 
 
         //logic operators
-        Matrix<bool> operator==(T compare) const{
+        Matrix<T> operator==(T compare) const{
             return applyLogicalOperator(compare,eq);
         };
-        Matrix<bool> operator!=(T compare) const{
+        Matrix<T> operator!=(T compare) const{
             return applyLogicalOperator(compare,neq);
         };
-        Matrix<bool> operator<=(T compare) const{
+        Matrix<T> operator<=(T compare) const{
             return applyLogicalOperator(compare,lte);
         };
-        Matrix<bool> operator<(T compare) const{
+        Matrix<T> operator<(T compare) const{
             return applyLogicalOperator(compare,lt);
         };
-        Matrix<bool> operator>=(T compare) const{
+        Matrix<T> operator>=(T compare) const{
             return applyLogicalOperator(compare,gte);
         };
-        Matrix<bool> operator>(T compare) const{
+        Matrix<T> operator>(T compare) const{
             return applyLogicalOperator(compare,gt);
         };
         template <class Y>
