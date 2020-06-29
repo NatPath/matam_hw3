@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": ""
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++ -std=c++11 -Wall -Werror -pedantic-errors -I ../include -DNDEBUG -g Auxiliaries.cpp Character.cpp Game.cpp Medic.cpp Soldier.cpp Sniper.cpp testGame.cpp"
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "g++ -std=c++11 -Wall -Werror -pedantic-errors -I ../include -DNDEBUG -g Auxiliaries.cpp Character.cpp Game.cpp Medic.cpp Soldier.cpp Sniper.cpp test_partC.cpp"
+        },
+        {
+            "label": "debug",
+            "type": "shell",
+            "command": "gdb ./a.out"
+        }
+    ]
+}
