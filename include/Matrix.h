@@ -8,6 +8,7 @@
 #include <exception>
 #include "Vector.h"
 #include "Auxiliaries.h"
+#include "Exceptions.h"
 
 
 namespace mtm{
@@ -51,8 +52,7 @@ namespace mtm{
                 }
                 for (int j = 0; j < width(); j++)
                 {
-                    //result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
-                    result.rows[i][j] = compared_row[j] ? 1 : 0;
+                    result(i,j) = compared_row[j] ? 1 : 0;
                 }
             }
             return result;

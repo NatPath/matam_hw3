@@ -2,6 +2,7 @@
 #define _GAME_EXCEPTIONS_H_
 
 namespace mtm{
+    class Exception : public std::exception{};
 
     class GameException:public Exception{
         std::string error;

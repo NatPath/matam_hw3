@@ -34,8 +34,9 @@ class Vector{
     }
 
 //Assumes there is an assignment (=) for the type T
+//Assumes there is a default contructor for T
      static Vector<T> Diagonal(int size,int index_of_value, T value){
-        Vector new_vector(size,0);
+        Vector<T> new_vector(size,T());
         if (index_of_value<size){
             new_vector.elements[index_of_value]=value;
         }
@@ -66,7 +67,7 @@ class Vector{
         return *this;
     }
     //returns a reference to the element at a given index 
-    T& operator[](int index)const{
+    T& operator[](int index) const{
         return elements[index];        
     }
 

@@ -9,8 +9,8 @@
 #include <string>
 #include <fstream>
 
-#include "Matrix.h"
-#include "Auxiliaries.h"
+#include "../include/Matrix.h"
+#include "../include/Auxiliaries.h"
 
 #define DEPENDENCY_VERBOSE
 
