@@ -289,13 +289,12 @@ bool testAttackGeneric(){
     ASSERT_ERROR(game.attack(GridPoint(0,0), GridPoint(rows-1,cols-1)), OutOfRange);
     ASSERT_ERROR(game.attack(GridPoint(0,0), GridPoint(0,0)), OutOfAmmo);
     ASSERT_NO_ERROR(game.reload(GridPoint(0,0)));
+    cout<<game<<endl;
     ASSERT_NO_ERROR(game.attack(GridPoint(0,0), GridPoint(0,0)));
     ASSERT_TEST(checkGameContainsPlayerAt(game, GridPoint(0,0)));
     ASSERT_TEST(checkGameContainsPlayerAt(game, GridPoint(0,1)));
     ASSERT_TEST(!checkGameContainsPlayerAt(game, GridPoint(1,0)));
-
     return true;
-
 }
 
 bool testAttackSoldier(){

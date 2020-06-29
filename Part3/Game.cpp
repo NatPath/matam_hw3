@@ -14,7 +14,7 @@ namespace mtm{
     Game::Game(int height, int width)
     try:board(Dimensions(height,width),nullptr)
     {}
-    catch(Board::IllegalInitialization e)
+    catch(Board::IllegalInitialization& e)
     {
         throw IllegalArgument();
     }
@@ -125,7 +125,8 @@ namespace mtm{
         Character_ptr to_attack_with = getCharacter(src_coordinates);
         to_attack_with->attackWrapper(board, src_coordinates, dst_coordinates);
         
-        if(getCharacter(dst_coordinates)->isDead()){
+        //dst_coordinate might not contain a character
+        if(containsCharacter(dst_coordinates) && getCharacter(dst_coordinates)->isDead()){
             getCharacter(dst_coordinates) = nullptr;
         }
     }
@@ -164,11 +165,13 @@ namespace mtm{
         int python_count=0;
         int cpp_count=0;
         for (Board::const_iterator i=board.begin(); i != board.end(); i++){
-            if ( (*i)->getTeam() == PYTHON){
-                python_count++;
-            }            
-            else if ( (*i)->getTeam() == CPP){
-                cpp_count++;
+            if ((*i)!=nullptr){
+                if ( (*i)->getTeam() == PYTHON){
+                    python_count++;
+                }            
+                else if ( (*i)->getTeam() == CPP){
+                    cpp_count++;
+                }
             }
         }
         

@@ -23,6 +23,9 @@ namespace mtm{
             damage*=2;
         }
         target->changeHealth(damage);
+        if (target->isDead()){
+            target=nullptr;
+        }
     }
 
     void Sniper::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){

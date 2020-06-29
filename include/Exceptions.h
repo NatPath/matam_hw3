@@ -9,7 +9,7 @@ namespace mtm{
         
         public:
         GameException(const std::string error_class){
-            error = std::string("A game related error has occurred:"+error_class);
+            error = std::string("A game related error has occurred: "+error_class);
         };
         const char* what() const noexcept override{ 
             return error.c_str();
@@ -51,7 +51,7 @@ namespace mtm{
     };
     class IllegalTarget: public GameException{ 
         public:
-        IllegalTarget():GameException("OutOfAmmo"){};
+        IllegalTarget():GameException("IllegalTarget"){};
     };
 
 

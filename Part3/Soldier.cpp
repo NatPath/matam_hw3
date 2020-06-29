@@ -29,8 +29,11 @@ namespace mtm{
                 if(target == nullptr || distance > ceil(range/3) || target->getTeam() == team){
                     continue;
                 }
-                damage = (distance == 0)? -power:ceil(-power/2);
+                damage = (distance == 0)? -power:-1*ceil(power/2);
                 target->changeHealth(damage);
+                if (target->isDead()){
+                    target=nullptr;
+                }
             }
         }
     }

@@ -25,6 +25,9 @@ namespace mtm{
             changeAmmo(1); // 1 ammo will be removed by the wrapper, make sure we stay with the same amount
         }
         target->changeHealth(health_amount);
+        if (target->isDead()){
+            target=nullptr;
+        }
     }
     const char Medic::getSymbol(){
         if (team==PYTHON){

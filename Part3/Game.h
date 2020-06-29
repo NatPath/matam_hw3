@@ -23,7 +23,9 @@ namespace mtm{
         bool containsCharacter(const GridPoint& coordinates) ;
 
         //checks if a "coordinate to coordinate" action is legal, if it isn't throws the fitting exception 
-        //a better name is needed
+        //coordinate to coordinate action is an action in which: 
+        //(1)  both the coordinates are in the scope of the border
+        //(2)  the source coordinate contains a character
         void cordToCordCheck(const GridPoint& src_coordinates, const GridPoint& dst_coordinates); 
 
 
