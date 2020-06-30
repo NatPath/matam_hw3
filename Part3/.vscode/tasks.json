@@ -16,7 +16,7 @@
         {
             "label": "test",
             "type": "shell",
-            "command": "g++ -std=c++11 -Wall -Werror -pedantic-errors -I ../include -DNDEBUG -g Auxiliaries.cpp Character.cpp Game.cpp Medic.cpp Soldier.cpp Sniper.cpp test_partC.cpp"
+            "command": "g++ -std=c++11 -Wall -Werror -pedantic-errors -I ../include -DNDEBUG -g Auxiliaries.cpp Character.cpp Game.cpp Medic.cpp Soldier.cpp Sniper.cpp test_partC_copy.cpp"
         },
         {
             "label": "debug",

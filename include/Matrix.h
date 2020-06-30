@@ -17,7 +17,12 @@ namespace mtm{
     class Matrix{
         Vector<T>* rows;
         Dimensions dim;
-
+        /**
+         * SHOULD DELETE
+         * flatten_matrix:
+         *  A method which returns a pointer to a single array of the elements of the matrix.
+         *  In the order they are ment to be printed.
+         * */
         T* flatten_matrix() const{
             int matrix_height=height();
             int matrix_width=width();
@@ -37,6 +42,10 @@ namespace mtm{
             }
             return flat_matrix;
         };
+        /**
+         * Assumptions on T:
+         * The type T must have all the following boolean opperators {==,!=,<,>,<=,>=} and them returning a boolean
+         * */
         Matrix<bool> applyLogicalOperator(T compare, logical_operator operation) const{
             Matrix<bool> result(dim);
             Vector<bool> compared_row;
@@ -61,7 +70,9 @@ namespace mtm{
         
 
         public:
-// can we put this part in another file?
+        /**
+         * Exceptions Sections:
+         * */
         class AccessIllegalElement: public Exception {
             public:
             const char* what() const noexcept override{
@@ -86,6 +97,11 @@ namespace mtm{
                 return error.c_str();
             }
         };
+        //
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * */
         explicit Matrix<T>(Dimensions dim, T initialize = T()):dim(dim){
             if(dim.getCol()<=0||dim.getRow()<=0){
                 throw IllegalInitialization();
@@ -95,6 +111,10 @@ namespace mtm{
                 rows[i] = Vector<T>(dim.getCol(),initialize);
             }
         };
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * */
         Matrix<T>(const Matrix<T>& mat):dim(mat.dim){
             rows = new Vector<T>[dim.getRow()];
             for (int i=0;i<dim.getRow();i++){
@@ -104,11 +124,16 @@ namespace mtm{
         ~Matrix<T>(){
             delete[] rows;
         };
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * */
         Matrix<T>& operator=(const Matrix<T>& mat){
             if(this==&mat){
                 return *this;
             }
             Vector<T>* data_temp=new Vector<T>[mat.height()];
+            // data_temp is not protected memory-wise, if any exception accurs (like bad_alloc) it should be caught and handeled
             try{
                 for (int i=0;i<mat.height();i++){
                     data_temp[i]=mat.rows[i];
@@ -123,6 +148,10 @@ namespace mtm{
             }
             return *this;
         };
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * */
         static Matrix<T> Diagonal(int dimension, T value){
             if (dimension<=0){
                 throw IllegalInitialization();
@@ -144,6 +173,10 @@ namespace mtm{
         int size() const{
             return width()*height();
         };
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * */
         Matrix<T> transpose() const{
 
             Vector<T>* transposed_rows = Vector<T>::transpose(rows,height());
@@ -159,8 +192,15 @@ namespace mtm{
             return transposed;
         };
   
-
-        ///arithmetic operators
+        /**
+         * Arithmetic Operators
+         * */
+        
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * T must have a + operator returning a T
+         * */
         Matrix<T> operator+(const Matrix<T>& to_add) const{
             if (dim!=to_add.dim){
                 throw DimensionMismatch(dim,to_add.dim);
@@ -174,6 +214,11 @@ namespace mtm{
             }
             return new_matrix;
         };
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * T must have a unary - operator returning a T
+         * */
         Matrix<T> operator-() const{
             Matrix new_matrix(dim);
             int matrix_height=height();
@@ -182,22 +227,29 @@ namespace mtm{
             }
             return new_matrix;
         };
+        /**
+         * Assumptions on T:
+         * T must have an assignment operator 
+         * T must have a -(binary) operator returning a T
+         * */
         Matrix<T> operator-(const Matrix<T>& to_subtract) const{
             if (dim!=to_subtract.dim){
                 throw DimensionMismatch(dim,to_subtract.dim);
             }
             return *this+(-to_subtract);
         };
-
         template <class Y>
         friend Matrix<Y> operator+(const Matrix<Y>& matrix,Y to_add);
         template <class Y>
         friend Matrix<Y> operator+(Y to_add, const Matrix<Y>& matrix);//does not really need to be a friend
-        template <class Y>
-        friend Matrix<Y>& operator+=(Matrix<Y>& matrix,Y to_add);// i'm not sure if this function should be symetric also.. currently it seems like it fits to be a member function. 
+        //
 
 
-        //logic operators
+
+        /**
+         * Logical Operators
+         * for Assumptions see applyLogicalOperator 
+         * */
         Matrix<bool> operator==(T compare) const{
             return applyLogicalOperator(compare,eq);
         };
@@ -216,6 +268,8 @@ namespace mtm{
         Matrix<bool> operator>(T compare) const{
             return applyLogicalOperator(compare,gt);
         };
+        //
+
         template <class Y>
         friend std::ostream& operator<<(std::ostream& os,const Matrix<Y>& to_print);
 
@@ -223,7 +277,6 @@ namespace mtm{
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
-            //return rows[row].getReference(col);    
             return rows[row][col];    
 
         };
@@ -231,7 +284,6 @@ namespace mtm{
             if(row<0 || row>=height() || col<0 || col>=width()){
                 throw AccessIllegalElement();
             }
-            //return rows[row].get(col);  
             return rows[row][col];  
         };
 
@@ -253,6 +305,10 @@ namespace mtm{
             return const_iterator(this,size());
         };
 
+        /**
+         * apply:
+         * "applyable" is any type which has an operator of (T) and returns a T
+         * */
         template <typename applyable>
         Matrix<T> apply(applyable func) const{
            Matrix<T> new_matrix(dim);
@@ -287,10 +343,6 @@ namespace mtm{
 
     template <class T>
      std::ostream& operator<<(std::ostream& os,const Matrix<T>& to_print) {
-         /*
-            os<<printMatrix(os,to_print.begin(),to_print.end(),to_print.width());
-            return os;
-        */
        return printMatrix(os,to_print.begin(),to_print.end(),to_print.width());
             
     }
@@ -337,7 +389,6 @@ namespace mtm{
             }
             int row = index/(*matrix).width();
             int col = index%(*matrix).width();
-            //return (*matrix).rows[row].getReference(col);
             return (*matrix).rows[row][col];
         };
         bool operator==(const iterator& to_compare) const {
@@ -380,7 +431,6 @@ namespace mtm{
             }
             int row = index/(*matrix).width();
             int col = index%(*matrix).width();
-            //return (*matrix).rows[row].get(col);
             return (*matrix).rows[row][col];
         };
         bool operator==(const const_iterator& to_compare) const{
