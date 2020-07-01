@@ -22,13 +22,16 @@ namespace mtm{
         Character_ptr target;
         int damage;
         int distance;
+        //iterates over the board to hit all the characters who need to be effected by the attack
         for(int i = 0; i < board.height(); i++){
             for(int j = 0; j< board.width(); j++){
                 target = board(i,j);
                 distance = GridPoint::distance(dst_coordinates,GridPoint(i,j));
+                //checks hit zone
                 if(target == nullptr || distance > ceil((double)range/3) || target->getTeam() == team){
                     continue;
                 }
+                //calculates the damage
                 damage = (distance == 0)? -power:-1*ceil((double)power/2);
                 target->changeHealth(damage);
                 if (target->isDead()){

@@ -10,7 +10,7 @@
 #define EMPTY_CHAR ' ' 
 
 namespace mtm{
-    //no longer shows the error,
+
     Game::Game(int height, int width)
     try:board(Dimensions(height,width),nullptr)
     {}
@@ -125,7 +125,6 @@ namespace mtm{
         Character_ptr to_attack_with = getCharacter(src_coordinates);
         to_attack_with->attackWrapper(board, src_coordinates, dst_coordinates);
         
-        //dst_coordinate might not contain a character
         if(containsCharacter(dst_coordinates) && getCharacter(dst_coordinates)->isDead()){
             getCharacter(dst_coordinates) = nullptr;
         }
@@ -161,7 +160,6 @@ namespace mtm{
 
     
     bool Game::isOver(Team* winningTeam) const{
-        //we can split this function abit.. 
         int python_count=0;
         int cpp_count=0;
         for (Board::const_iterator i=board.begin(); i != board.end(); i++){
@@ -182,21 +180,6 @@ namespace mtm{
            return true;
         }
         return false;
-        /*
-        if ( cpp_count==0 && python_count!=0){
-            if (winningTeam!=NULL){
-                *winningTeam=PYTHON;
-            }
-            return true;
-        }
-        if ( cpp_count!=0 && python_count==0){
-            if(winningTeam!=NULL){
-                *winningTeam=CPP;
-            }
-            return true;
-        }
-        return false;
-        */
     }
 
 

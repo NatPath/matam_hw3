@@ -20,6 +20,13 @@ namespace mtm{
          *  In the order they are ment to be printed.
          * */
         int* flatten_matrix() const;
+
+        /**
+         * applyLogicalOperator:
+         * A wrapper function for comparing with all boolean operators.
+         * Returns a fitting Matrix<bool> indicating the comparision between the matrix the method is applied on,
+         * the "compare" argument and "operation" (the logical operator given as argument)
+         * */
         IntMatrix applyLogicalOperator(int compare, logical_operator operation) const;
 
         public:
@@ -40,9 +47,6 @@ namespace mtm{
         IntMatrix operator-(const IntMatrix& to_subtract) const;
 
         friend IntMatrix operator+(const IntMatrix& matrix,int to_add);
-        friend IntMatrix operator+(int to_add, const IntMatrix& matrix);//does not really need to be a friend
-        friend IntMatrix& operator+=(IntMatrix& matrix,int to_add);// i'm not sure if this function should be symetric also.. currently it seems like it fits to be a member function. 
-
 
         //logic operators
         IntMatrix operator==(int compare) const;
@@ -66,6 +70,8 @@ namespace mtm{
         const_iterator begin() const;
         const_iterator end() const;
     };
+    IntMatrix operator+(int to_add, const IntMatrix& matrix);
+    IntMatrix& operator+=(IntMatrix& matrix,int to_add); 
 
     bool any(const IntMatrix& matrix);
     bool all(const IntMatrix& matrix);

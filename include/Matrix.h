@@ -17,36 +17,17 @@ namespace mtm{
     class Matrix{
         Vector<T>* rows;
         Dimensions dim;
-        /**
-         * SHOULD DELETE
-         * flatten_matrix:
-         *  A method which returns a pointer to a single array of the elements of the matrix.
-         *  In the order they are ment to be printed.
-         * */
-        T* flatten_matrix() const{
-            int matrix_height=height();
-            int matrix_width=width();
-            int total_size=matrix_height*matrix_width;
 
-            T* flat_matrix= new T[total_size];
-            try{
-                for (int i=0;i<matrix_height;i++){
-                    for(int j=0;j<matrix_width;j++){
-                        flat_matrix[i*matrix_width+j]=rows[i][j];
-                    }
-                }
-            }
-            catch(...){
-                delete[] flat_matrix;
-                throw;
-            }
-            return flat_matrix;
-        };
         /**
+         * applyLogicalOperator:
+         * A wrapper function for comparing with all boolean operators.
+         * Returns a fitting Matrix<bool> indicating the comparision between the matrix the method is applied on,
+         * the "compare" argument and "operation" (the logical operator given as argument)
+         * 
          * Assumptions on T:
          * The type T must have all the following boolean opperators {==,!=,<,>,<=,>=} and them returning a boolean
          * */
-        Matrix<bool> applyLogicalOperator(T compare, logical_operator operation) const{
+        Matrix<bool> applyLogicalOperator(const T& compare, logical_operator operation) const{
             Matrix<bool> result(dim);
             Vector<bool> compared_row;
             for (int i = 0; i < height(); i++)
@@ -238,10 +219,15 @@ namespace mtm{
             }
             return *this+(-to_subtract);
         };
+        //Friend functions: These functions need access to "dim" of the Matrix, but need to be symetric in nature
+        /**
+          * Assumptions on T:
+          * T must have an assignment operator and a + operator returning a matrix
+          * */
         template <class Y>
-        friend Matrix<Y> operator+(const Matrix<Y>& matrix,Y to_add);
+        friend Matrix<Y> operator+(const Matrix<Y>& matrix,const Y& to_add);
         template <class Y>
-        friend Matrix<Y> operator+(Y to_add, const Matrix<Y>& matrix);//does not really need to be a friend
+        friend Matrix<Y> operator+(const Y& to_add, const Matrix<Y>& matrix);
         //
 
 
@@ -250,22 +236,22 @@ namespace mtm{
          * Logical Operators
          * for Assumptions see applyLogicalOperator 
          * */
-        Matrix<bool> operator==(T compare) const{
+        Matrix<bool> operator==(const T& compare) const{
             return applyLogicalOperator(compare,eq);
         };
-        Matrix<bool> operator!=(T compare) const{
+        Matrix<bool> operator!=(const T& compare) const{
             return applyLogicalOperator(compare,neq);
         };
-        Matrix<bool> operator<=(T compare) const{
+        Matrix<bool> operator<=(const T& compare) const{
             return applyLogicalOperator(compare,lte);
         };
-        Matrix<bool> operator<(T compare) const{
+        Matrix<bool> operator<(const T& compare) const{
             return applyLogicalOperator(compare,lt);
         };
-        Matrix<bool> operator>=(T compare) const{
+        Matrix<bool> operator>=(const T& compare) const{
             return applyLogicalOperator(compare,gte);
         };
-        Matrix<bool> operator>(T compare) const{
+        Matrix<bool> operator>(const T& compare) const{
             return applyLogicalOperator(compare,gt);
         };
         //
@@ -348,21 +334,29 @@ namespace mtm{
     }
 
     template <class T>
-    Matrix<T> operator+(const Matrix<T>& matrix,T to_add){
+    Matrix<T> operator+(const Matrix<T>& matrix,const T& to_add){
         return matrix+Matrix<T>(matrix.dim,to_add);
     }
 
     template <class T>
-    Matrix<T> operator+(T to_add, const Matrix<T>& matrix){
+    Matrix<T> operator+(const T& to_add, const Matrix<T>& matrix){
         return Matrix<T>(matrix.dim,to_add)+matrix;
     }
 
+/**
+ * An += operator for Matirx<T>
+ * Assumptions on T:
+ * T must have an assignment operator and a + operator returning a matrix
+ * */
     template <class T>
-    Matrix<T>& operator+=(Matrix<T>& matrix,T to_add){
+    Matrix<T>& operator+=(Matrix<T>& matrix,const T& to_add){
         matrix=matrix+to_add;
         return matrix;
     } 
 
+/**
+ * Iterator for Matrix<T>
+ * */
     template <class T>
     class Matrix<T>::iterator{
         friend class Matrix;
@@ -403,6 +397,9 @@ namespace mtm{
         
 
     };
+/**
+ * Constant Iterator for Matrix<T>
+ * */
     template <class T>
     class Matrix<T>::const_iterator{
         friend class Matrix<T>;

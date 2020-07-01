@@ -111,6 +111,7 @@ bool testCopyConstructor(){
     ASSERT_NO_ERROR(g1.reload(GridPoint(2,1)));
 
     ASSERT_NO_ERROR(g1.attack(GridPoint(2,1), GridPoint(2,1)));
+    ASSERT_NO_ERROR(g1.reload(GridPoint(2,1)));
     ASSERT_ERROR(g2.attack(GridPoint(2,2), GridPoint(2,2)), OutOfAmmo);
 
     return true;

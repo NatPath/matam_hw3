@@ -34,7 +34,6 @@ namespace mtm{
     }
 
 
-    //prev: IntMatrix::IntMatrix Identity(int dimension){
     IntMatrix IntMatrix::Identity(int dimension){
         Dimensions dim(dimension,dimension);
         IntMatrix new_mat(dim);
@@ -90,12 +89,10 @@ namespace mtm{
     }
 
     int& IntMatrix::operator()(int row, int col){
-        //return rows[row].getReference(col);    
         return rows[row][col];    
     }
 
     const int IntMatrix::operator()(int row,int col) const{
-        //return rows[row].get(col);  
         return rows[row][col];  
      }
 
@@ -177,7 +174,6 @@ namespace mtm{
             }
             for (int j = 0; j < width(); j++)
             {
-                //result.rows[i].getReference(j) = compared_row.get(j) ? 1 : 0;
                 result.rows[i][j] = compared_row[j] ? 1 : 0;
             }
         }
@@ -236,7 +232,6 @@ namespace mtm{
     int& IntMatrix::iterator::operator*() const{
         int row = index/(*matrix).width();
         int col = index%(*matrix).width();
-        //return (*matrix).rows[row].getReference(col);
         return (*matrix).rows[row][col];
     }
 

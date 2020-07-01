@@ -30,19 +30,6 @@ namespace mtm{
 
 
         public:
-        //Exceptions
-        /*
-        class Exception;
-        class IllegalArgument;
-        class IllegalCell;
-        class CellEmpty;
-        class MoveTooFar;
-        class CellOccupied;
-        class OutOfRange;
-        class OutOfAmmo;
-        class IllegalTarget;
-        */
-
         
         Game(int height, int width);
         Game(const Game& other);
@@ -58,7 +45,7 @@ namespace mtm{
 
     };
     std::ostream& operator<<(std::ostream& os,const Game& to_print);
-    //converts a given Character_ptr to a char ready for printing
+    //converts a given Character_ptr to the Symbol of the character
     const char characterToChar(const Character_ptr to_convert);
 }
 

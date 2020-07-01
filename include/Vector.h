@@ -1,6 +1,7 @@
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
 
+//an arbitrary default size when a size is not given
 #define DEFAULT_SIZE 10
 
 #include <iostream>
@@ -19,25 +20,44 @@ class Vector{
     public:
     Vector():elements(new T[DEFAULT_SIZE]),size(DEFAULT_SIZE){};//default constructor
     explicit Vector(int size):elements(new T[size]),size(size){};
-    Vector(int size,T element):elements(new T[size]),size(size){
+    /**
+     * Constructor :
+     *  makes a vector of size "size" in which all of its elements are element
+     * 
+     * Assumptions on T:
+     * T must have assignment operator
+     * */
+    Vector(int size,const T& element):elements(new T[size]),size(size){
        for (int i=0;i<size;i++){
            elements[i]=element;
        } 
     };
 /**
+ * Copy constructor for Vector<T>:
+ * Makes a vector of the same size of "to_copy" and the same elements 
+ *
  * Assumptions on T:
  * T must have assignment "=" operator 
  * */
-    Vector<T>(const Vector<T>& v):size(v.size){
-        elements=new T[v.size];
-        for (int i=0; i<v.size;i++){
-            elements[i]=v.elements[i];
+    Vector<T>(const Vector<T>& to_copy):size(to_copy.size){
+        elements=new T[to_copy.size];
+        for (int i=0; i<to_copy.size;i++){
+            elements[i]=to_copy.elements[i];
         }
     }
+    /**
+     * Vector<T> desctructor:
+     * frees elements memory
+     * 
+     * */
     ~Vector(){
         delete[] elements;
     }
 
+    /**
+     * getSize:
+     * returns the size of the vector
+     * */
     int getSize() const{
         return size;
     }

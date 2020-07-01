@@ -14,8 +14,18 @@ namespace mtm{
     }
     
 
+    void Medic::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
+        int distance = GridPoint::distance(src_coordinates,dst_coordinates);
+        if( distance > range ){
+            throw OutOfRange();
+        }  
+    }
     void Medic::attack(Matrix<Character_ptr> &board, const GridPoint& src_coordinates, const GridPoint& dst_coordinates) {
         Character_ptr target = board(dst_coordinates.row,dst_coordinates.col);
+        //A medic can attack a teammate without  loosing ammo, throws OutOfAmmo only if the shot is not "friendly fire"
+        if (ammo <= 0 && ( target== nullptr || target->getTeam()!=team)){
+            throw OutOfAmmo();
+        }
         if(target == nullptr || src_coordinates == dst_coordinates){
             throw IllegalTarget();
         }
