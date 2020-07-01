@@ -1,0 +1,41 @@
+
+if [ $# -eq 0 ]
+  then
+    echo "zip file not supplied"
+    exit
+fi
+
+echo ""
+echo "Running Final Check"
+echo ""
+~mtm/public/1920b/ex3/finalCheck $1
+
+echo ""
+echo "Running Advanced Final Check"
+echo ""
+
+unzip -qq $1 -d .temp_folder
+cd .temp_folder
+
+wget -q https://github.com/oleitersdorf/234124_HW3_Tests/archive/master.zip
+unzip -qq master.zip
+
+echo "Running Part A tests:"
+echo ""
+g++ -std=c++11 -Wall -Werror -pedantic-errors -DNDEBUG partA/*.cpp ~mtm/public/1920b/ex3/Auxiliaries.cpp -IpartA -I ~mtm/public/1920b/ex3 234124_HW3_Tests-master/partA_tester.cpp
+valgrind ./a.out
+
+echo ""
+echo "Running Part B tests:"
+echo ""
+g++ -std=c++11 -Wall -Werror -pedantic-errors -DNDEBUG partB/*.cpp ~mtm/public/1920b/ex3/Auxiliaries.cpp -IpartB -I ~mtm/public/1920b/ex3 234124_HW3_Tests-master/partB_tester.cpp
+valgrind ./a.out
+
+echo ""
+echo "Running Part C tests:"
+echo ""
+g++ -std=c++11 -Wall -Werror -pedantic-errors -DNDEBUG partC/*.cpp ~mtm/public/1920b/ex3/Auxiliaries.cpp -IpartC -I ~mtm/public/1920b/ex3 234124_HW3_Tests-master/partC_tester.cpp
+valgrind ./a.out
+
+cd ..
+rm -r .temp_folder
