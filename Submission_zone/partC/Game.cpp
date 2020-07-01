@@ -111,7 +111,7 @@ namespace mtm{
         cordToCordCheck(src_coordinates,dst_coordinates);
 
         Character_ptr to_move = getCharacter(src_coordinates);
-        to_move->checkMovementValid(src_coordinates,dst_coordinates);//wiil throw a MoveTooFar if it isn't
+        to_move->checkMovementValid(src_coordinates,dst_coordinates);//will throw a MoveTooFar if it isn't
         if (containsCharacter(dst_coordinates)){
             throw CellOccupied();
         }

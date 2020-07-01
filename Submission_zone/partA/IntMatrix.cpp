@@ -260,7 +260,6 @@ namespace mtm{
     const int IntMatrix::const_iterator::operator*() const{
         int row = index/(*matrix).width();
         int col = index%(*matrix).width();
-        //return (*matrix).rows[row].get(col);
         return (*matrix).rows[row][col];
     }
 
