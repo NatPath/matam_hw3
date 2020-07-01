@@ -14,6 +14,11 @@ namespace mtm{
         Dimensions dim;
 
         private:
+        /**
+         * flatten_matrix:
+         *  A method which returns a pointer to a single array of the elements of the matrix.
+         *  In the order they are ment to be printed.
+         * */
         int* flatten_matrix() const;
         IntMatrix applyLogicalOperator(int compare, logical_operator operation) const;
 

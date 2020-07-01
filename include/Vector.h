@@ -52,7 +52,7 @@ class Vector{
  * T must have assignment "=" operator 
  * T must have a default constructor
  * */
-     static Vector<T> Diagonal(int size,int index_of_value, T& value){
+     static Vector<T> Diagonal(int size,int index_of_value,const T& value){
         Vector<T> new_vector(size,T());
         if (index_of_value<size){
             new_vector.elements[index_of_value]=value;
