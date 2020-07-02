@@ -22,14 +22,7 @@ namespace mtm{
                 throw MoveTooFar();
             }  
         }
-        void Character::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
-            if(GridPoint::distance(src_coordinates,dst_coordinates)>range){
-                throw OutOfRange();
-            }  
-            if(ammo<=0){
-                throw OutOfAmmo();
-            }
-        }
+        
         
 
         void Character::attackWrapper(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates){

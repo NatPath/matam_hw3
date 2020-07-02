@@ -42,7 +42,7 @@ namespace mtm{
         //will throw an Exception if src_coordinates and dst_coordinates are too far apart for movement
         void checkMovementValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
         //will throw an Exception if Attack is not in range or doesn't have enough ammo for the attack
-        virtual void checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates);
+        virtual void checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates) = 0;
         //checks for attack validity and executes the attack(calls attack function)
         //will change ammo and game state according to the character and rules
         void attackWrapper(Matrix<Character_ptr> &board,const GridPoint& src_coordinates,const GridPoint& dst_coordinates);

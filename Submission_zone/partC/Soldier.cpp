@@ -41,6 +41,15 @@ namespace mtm{
         }
     }
 
+    void Soldier::checkAttackValid(const GridPoint& src_coordinates,const GridPoint& dst_coordinates){
+            if(GridPoint::distance(src_coordinates,dst_coordinates)>range){
+                throw OutOfRange();
+            }  
+            if(ammo<=0){
+                throw OutOfAmmo();
+            }
+    }
+
     const char Soldier::getSymbol(){
         if (team==PYTHON){
             return SMALL_S;
