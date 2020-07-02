@@ -114,7 +114,6 @@ namespace mtm{
                 return *this;
             }
             Vector<T>* data_temp=new Vector<T>[mat.height()];
-            // data_temp is not protected memory-wise, if any exception accurs (like bad_alloc) it should be caught and handeled
             try{
                 for (int i=0;i<mat.height();i++){
                     data_temp[i]=mat.rows[i];
