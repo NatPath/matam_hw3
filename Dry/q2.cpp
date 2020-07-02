@@ -37,7 +37,6 @@ double getPetrol(std::vector<Road> roads,const Car& car){
     for (Road i : roads){
         sum+=(i.length())/car.getFuelConsumption(i.speed());
     }
-   
     return sum;
 }
 
