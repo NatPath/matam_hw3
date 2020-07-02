@@ -120,10 +120,10 @@ public:
         {
             return *this;
         }
-        T *data_tmp = new T[vector_a.size()];
+        T *data_tmp = new T[vector_a.size];
         try
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < vector_a.size; i++)
             {
                 data_tmp[i] = vector_a.elements[i];
             }
