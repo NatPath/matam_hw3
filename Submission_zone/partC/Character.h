@@ -28,6 +28,7 @@ namespace mtm{
         Character(mtm::Team team,mtm::units_t health, mtm::units_t ammo, mtm::units_t range, mtm::units_t power,
         mtm::units_t movement_speed, mtm::units_t reload_ammount);
         Character(const Character& other) = default;
+        virtual ~Character() = default;
         /**
          * clone:
          * A method for returning a pointer to an identical but new character to the one the method is called upon
